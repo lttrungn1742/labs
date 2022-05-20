@@ -1,11 +1,11 @@
 pipeline {
     agent {
-        docker { image 'node:16.13.1-alpine' }
+        docker { image 'owasp/zap2docker-stable' }
     }
     stages {
         stage('Test') {
             steps {
-                sh 'docker -v'
+                sh 'ls -alh'
             }
         }
     }
