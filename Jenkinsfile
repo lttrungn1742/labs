@@ -5,6 +5,7 @@ pipeline {
             agent{
                 docker {
                     image 'owasp/zap2docker-stable'
+                    args '-p 8090:8090 zap.sh -daemon -port 8090 -host 0.0.0.0'
                 }
             }
             steps {
