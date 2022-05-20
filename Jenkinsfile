@@ -1,14 +1,9 @@
 pipeline {
-    agent none
+    agent any
     stages {
         stage('Test') {
-            agent{
-                docker {
-                    image 'owasp/zap2docker-stable'
-                }
-            }
             steps {
-                sh 'ls -alh'
+                sh 'docker -v'
             }
         }
     }
