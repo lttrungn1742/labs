@@ -8,7 +8,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'ls -alh'
+                sh 'docker -v'
             }
         }
     }
