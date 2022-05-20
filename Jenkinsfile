@@ -2,14 +2,13 @@ pipeline {
     agent none
     stages {
         stage('Test') {
-            agent{
-                docker {
-                    image 'owasp/zap2docker-stable'
-                    args '-v scripts/zap/wrk:/zap/wrk/:rw'
-                }
-            }
+            // agent{
+            //     docker {
+            //         image 'owasp/zap2docker-stable'
+            //     }
+            // }
             steps {
-                sh 'ls -alh zap'
+                sh 'docker -v'
             }
         }
     }
