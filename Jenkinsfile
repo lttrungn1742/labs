@@ -3,10 +3,8 @@ pipeline {
     stages {
         stage('Test') {
             agent{
-                {
-                    docker {
+                docker {
                         image 'owasp/zap2docker-stable'
-                    }
                 }
             }
             steps {
