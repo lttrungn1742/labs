@@ -9,7 +9,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'docker -v'
+                sh 'ls -alh zap'
             }
         }
     }
