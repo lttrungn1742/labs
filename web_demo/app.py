@@ -1,6 +1,6 @@
 from flask import Flask, render_template_string, request, session, redirect
 import sqlite3, os
-con = sqlite3.connect('data.db', check_same_thread=False)
+con = sqlite3.connect(f'{os.getcwd()}/data.db', check_same_thread=False)
 cur = con.cursor()
 
 
