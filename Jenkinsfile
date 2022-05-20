@@ -16,7 +16,7 @@
 // }
 
 node {
-    satge("Test"){
+    stage("Test"){
         sh 'docker -v'
     }
 
