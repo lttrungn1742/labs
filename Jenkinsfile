@@ -5,7 +5,7 @@ pipeline {
             agent{
                 docker {
                     image 'owasp/zap2docker-stable'
-                    args '-v .:/zap/wrk/:rw'
+                    args '-v scripts/zap/wrk:/zap/wrk/:rw'
                 }
             }
             steps {
