@@ -12,7 +12,7 @@ pipeline {
             }
         }
 
-        stage('Clean Up docker'){
+        stage('Clean Up Container'){
             steps{
                 sh './web_demo/stop.sh'
                 sh 'cat zap/report.json'
