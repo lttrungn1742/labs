@@ -1,1 +1,1 @@
-docker stop web
+docker rm -f web
