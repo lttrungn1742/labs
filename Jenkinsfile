@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Zap') {
             steps {
-                sh 'cd zap && ./full_scan.sh && ls ls -alh'
+                sh 'cd zap && ./full_scan.sh && ls -alh'
             }
         }
 
