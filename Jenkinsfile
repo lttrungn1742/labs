@@ -8,13 +8,15 @@ pipeline {
         }
         stage('Zap') {
             steps {
-                sh 'cd scripts && ./full_scan.sh'
+                sh 'cd zap && ./full_scan.sh'
             }
         }
 
         stage('Done'){
             steps{
                 sh './web_demo/stop.sh'
+                sh 'ls -alh zap/'
+                sh 'cat zap/report.json'
             }
         }
     }
