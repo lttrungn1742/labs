@@ -8,14 +8,14 @@ pipeline {
         }
         stage('Zap') {
             steps {
-                sh 'cd zap && ./full_scan.sh'
+                sh 'cd zap && ./full_scan.sh && ls ls -alh'
             }
         }
 
         stage('Clean Up Container'){
             steps{
                 sh './web_demo/stop.sh'
-                sh 'cat zap/report.json'
+                sh 'cat zap/report.json || echo "No such report"'
             }
         }
     }
