@@ -8,16 +8,10 @@ pipeline {
         }
         stage('Zap') {
             steps {
-                sh 'cd zap && ./full_scan.sh'
                 sh 'ls -al /tmp/'
+                sh 'cd zap && ./full_scan.sh'
+                
             }
         }
-
-        // stage('Clean Up Container'){
-        //     steps{
-        //         //sh './web_demo/stop.sh'
-        //         sh 'ls -alh /tmp/'
-        //     }
-        // }
     }
 }
