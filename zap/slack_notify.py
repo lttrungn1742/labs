@@ -32,20 +32,23 @@ for site in report['site']:
 				}
 		]
         
-        payload_attack = '\n'.join([instance['attack'] for instance in alerts['instances']]) 
-        if payload_attack != '\n' or payload_attack != '':
+        payload_attack = [] #'\n'.join([instance['attack'] for instance in alerts['instances']]) 
+        for instance in alerts['instances']:
+            if instance['attack'] == '':
+                continue
+            payload_attack.append(instance['attack'])
+            
+        if payload_attack != []:
             fields.append(
                 {
 					"type": "mrkdwn",
-					"text": "*payload attack:*\n" + payload_attack
+					"text": "*payload attack:*\n" + '\n'.join(payload_attack)
 				})
         
-        p = {
+        message.append({
 			"type": "section",
 			"fields": fields
-		}
-        
-        message.append(p)
+		})
         
 payload = {
     'as_user': False,
