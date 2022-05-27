@@ -2,15 +2,18 @@ pipeline {
     agent any
     stages {
         stage('Build and Deploy'){
-            steps{
+            steps {
                 sh './web_demo/build_run.sh'
             }
         }
         stage('Zap') {
             steps {
-                sh 'cat /tmp/rp.md'
-                sh 'cd zap && ./full_scan.sh'
-                
+                sh './zap/full_scan.sh || echo "Done Scan"'
+            }
+        }
+        stage("Slack notification"){
+            steps {
+                sh 'python3 ./zap/slack_notify.py'
             }
         }
     }
