@@ -12,7 +12,8 @@ message = [
 			"type": "header",
 			"text": {
 				"type": "plain_text",
-				"text": report['@generated'] + 'at' + report['@name']
+				# "text": report['@generated'] + 'at' + report['@name']
+				"text": report['@generated']
 			}
 		}
 ]
