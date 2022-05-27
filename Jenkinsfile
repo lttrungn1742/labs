@@ -14,8 +14,8 @@ pipeline {
 
         stage('Clean Up Container'){
             steps{
-                sh './web_demo/stop.sh'
-                sh 'cat zap/report.json || echo "No such report"'
+                //sh './web_demo/stop.sh'
+                sh 'ls -alh /tmp/'
             }
         }
     }
