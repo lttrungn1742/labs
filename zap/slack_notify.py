@@ -2,8 +2,10 @@ import json, requests
 
 web_hook = "https://hooks.slack.com/services/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"
 
-report = json.loads(open('/tmp/rp.json','r').read())
-
+try:
+	report = json.loads(open('/tmp/rp.json','r').read())
+except:
+    exit("No such report")
 
 message = [
 		{
@@ -46,9 +48,12 @@ for site in report['site']:
         message.append(p)
         
 payload = {
-  "channel": "#devops-testing",
-  "text": "Zap - pipeline",
-  "blocks": message 
+    'as_user': False,
+    'username': 'ZAP - Testing',
+    'icon_emoji': ':chart_with_upwards_trend:',
+	"channel": "#devops-testing",
+	"text": "Zap - pipeline",
+	"blocks": message 
 }
 
 s = requests.session()
@@ -60,7 +65,7 @@ response = s.post(
     data=json.dumps(payload),
 )
 
-print(response.status_code)
-print(response.content)
+print("Slack notification success" if response.status_code == 200 else f"Fail, due to{response.content}")
+
 
 
