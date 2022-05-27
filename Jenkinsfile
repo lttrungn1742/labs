@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Zap') {
             steps {
-                sh 'ls -al /tmp/'
+                sh 'cat /tmp/rp.md'
                 sh 'cd zap && ./full_scan.sh'
                 
             }
