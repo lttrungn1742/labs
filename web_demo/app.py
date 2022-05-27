@@ -61,11 +61,11 @@ def login():
                     <button type="submit">sub</button>
                 </form>  {data}"""    
 
-@app.before_request
-def intercept():
-    if request.path in ['/admin']:
-        if 'user' not in session:
-            return redirect('/login')
+# @app.before_request
+# def intercept():
+#     if request.path in ['/admin']:
+#         if 'user' not in session:
+#             return redirect('/login')
 
 @app.route('/admin')
 def admin():
