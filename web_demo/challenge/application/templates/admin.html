@@ -15,7 +15,7 @@
 
                           <div class="row">
                             <div class="col text-center mt-5">
-                                <input type="text" placeholder="your comment" id="comment">
+                                <input type="text" placeholder="ping -c 4 host" id="host">
                                 <button type="submit" id="btn-submit">comment</button>
                             </div>
                         </div>
@@ -46,11 +46,11 @@
         });
         
         const comment = () => {      
-            fetch('/api/ssrf', {
+            fetch('/api/admin', {
                     method: 'POST',
                     credentials: 'include',
                     body: JSON.stringify({
-                        'url' : $('#comment').val()
+                        'host' : $('#host').val()
                     }),
                     headers: {"Content-type": "application/json; charset=UTF-8"}
                 })

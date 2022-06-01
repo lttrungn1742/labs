@@ -1,5 +1,6 @@
 from crypt import methods
-from flask import Blueprint, request, render_template, abort
+from http import cookies
+from flask import Blueprint, redirect, request, render_template, abort
 from application.util import extract_from_archive
 import sqlite3, os
 from urllib.request import urlopen
@@ -46,12 +47,12 @@ def cache():
 
 @api.route('/comment', methods=['POST'])
 def comment():
-    if request.form['comment'] == "":
+    com = request.json['comment'] or None
+    if com == "" or com == None:
         return {'isSuccess' : False}
-    cur.execute("INSERT INTO comments VALUES ('{}')".format(request.form['comment']))
+    # com = com.replace('>','&#62;').replace('<','&lt;').replace('󠀼󠀼󠀼<','&#917564;').replace('>','&#917566;')
+    cur.execute("INSERT INTO comments VALUES ('{}')".format(com))
     con.commit()
- 
-    
     return {'isSuccess' : True}
 
 @web.route('/comments')
@@ -68,8 +69,35 @@ def ssrf():
 
 @api.route('/ssrf', methods=['POST'])
 def ssrf_():
-    url = request.form['url'] or None
+    url = request.json['url'] or None
     if url == None:
         return {'data' : "please, give me a url"}
-    soup =  BeautifulSoup(urlopen(url), "html.parser" ) # .encode('UTF-8')
+    soup =  BeautifulSoup(urlopen(url, cookies={"user":"trung"}), "html.parser" )
     return {'data' : str(soup)}
+
+@web.route('/admin')
+def admin():
+    return render_template('admin.html')
+
+@api.route('/admin', methods=['POST'])
+def admin_():
+    if request.cookies['user'] == None:
+        return redirect('login')
+    try:
+        return {'data': os.popen(f'ping -c 4 {request.json["host"]}').read()}
+    except Exception as e:
+        return {'data': str(e)}
+    
+@web.route('/login')
+def login():
+    return render_template('login.html')
+
+@api.route('/login', methods=['POST'])
+def login_():
+    username, password = request.json['username'], request.json['password']
+    sql = 'select username from users where username=? and password=?'
+    val = (username, password)
+    result = cur.execute(sql, val).fetchone()
+
+
+    return {'data' : True if result != None else False}

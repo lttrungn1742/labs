@@ -15,8 +15,11 @@
 
                           <div class="row">
                             <div class="col text-center mt-5">
-                                <input type="text" placeholder="your comment" id="comment">
-                                <button type="submit" id="btn-submit">comment</button>
+                                <input type="text" placeholder="username" id="username">
+                                <br>
+                                <input type="text" placeholder="password" id="password">
+                                <br>
+                                <button type="submit" id="btn-submit">Login</button>
                             </div>
                         </div>
                          
@@ -46,11 +49,12 @@
         });
         
         const comment = () => {      
-            fetch('/api/ssrf', {
+            fetch('/api/login', {
                     method: 'POST',
                     credentials: 'include',
                     body: JSON.stringify({
-                        'url' : $('#comment').val()
+                        'username' : $('#username').val(),
+                        'password' : $('#password').val()
                     }),
                     headers: {"Content-type": "application/json; charset=UTF-8"}
                 })

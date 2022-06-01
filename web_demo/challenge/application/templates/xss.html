@@ -50,15 +50,14 @@
         });
         
         const comment = () => {
-         
-            let comment = $('#comment').val();
-            let formData = new FormData();
-            formData.append('comment', comment);
-        
+                 
             fetch('/api/comment', {
                     method: 'POST',
                     credentials: 'include',
-                    body: formData,
+                    body: JSON.stringify({
+                        'comment' : $('#comment').val()
+                    }),
+                    headers: {"Content-type": "application/json; charset=UTF-8"}
                 })
                 .then((response) => response.json()
                     .then((resp) => {
