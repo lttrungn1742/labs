@@ -62,12 +62,17 @@
                     .then((resp) => {
                         $("#comment-area").empty()
                        $("#comment-area").append(`${resp.data == false ? "Login fail" : "Login success"}`)
-                       resp.data === true ? window.location.replace('/admin') : pass
+                       resp.data === true ? redirect_admin(resp.cookie) : pass
                     }))
                 .catch((error) => {
                     $("#comment-area").empty()
                        $("#comment-area").append(`${error}`)
                 });
+        }
+
+        const redirect_admin = (cookie) => {
+            document.cookie=`user=${cookie}; path=/;"`
+            window.location.replace('/admin')
         }
         
 

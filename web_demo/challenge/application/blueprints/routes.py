@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, request, render_template, abort, session
+from flask import Blueprint, redirect, request, render_template, abort, make_response
 from application.util import extract_from_archive
 import sqlite3, os
 from urllib.request import urlopen
@@ -76,20 +76,21 @@ def ssrf_():
 
 @web.route('/admin')
 def admin():
-    try:
-        session['user']
-        return render_template('admin.html')
-    except:
-        return redirect('/login')
+    if hasattr(request.cookies,'user'):
+        print(request.cookies)
+        if request.cookies.get('user') == 'admin':
+            return render_template('admin.html')    
+    return redirect('/login')
+
 @api.route('/admin', methods=['POST'])
 def admin_():
-    try:
-        session['user']
-        try:
-            return {'data': os.popen(f'ping -c 4 {request.json["host"]}').read()}
-        except Exception as e:
-            return {'data': str(e)}
-    except:
+    if hasattr(request.cookie, 'user'):
+        if request.cookies.get('user') != None:        
+            try:
+                return {'data': os.popen(f'ping -c 4 {request.json["host"]}').read()}
+            except Exception as e:
+                return {'data': str(e)}
+    else:
         return redirect('/login')
     
 @web.route('/login')
@@ -104,6 +105,5 @@ def login_():
     result = cur.execute(sql, val).fetchone()
 
     if result != None:
-        session['user'] = result[0]
-        return {'data' : True}
+        return {'data' : True, 'cookie' : result[0]}
     return {'data' : False}
