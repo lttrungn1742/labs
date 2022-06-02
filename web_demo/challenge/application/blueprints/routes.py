@@ -1,6 +1,4 @@
-from crypt import methods
-from http import cookies
-from flask import Blueprint, redirect, request, render_template, abort
+from flask import Blueprint, redirect, request, render_template, abort, session
 from application.util import extract_from_archive
 import sqlite3, os
 from urllib.request import urlopen
@@ -17,7 +15,7 @@ try:
                     (username text, password text)''')
     cur.execute('''CREATE TABLE comments
                     (comment text)''')
-    cur.execute("INSERT INTO users VALUES (1,'admin','VietLink@1')")
+    cur.execute("INSERT INTO users VALUES ('admin','VietLink@1')")
     con.commit()
 except sqlite3.OperationalError:
     pass
@@ -50,7 +48,7 @@ def comment():
     com = request.json['comment'] or None
     if com == "" or com == None:
         return {'isSuccess' : False}
-    # com = com.replace('>','&#62;').replace('<','&lt;').replace('󠀼󠀼󠀼<','&#917564;').replace('>','&#917566;')
+    # com = com.replace('>','&#62;').replace('<','&lt;').replace('󠀼󠀼󠀼<','&#917564;').replace('>','&#917566;').replace('"','&quot;').replace("'",'&apos;')
     cur.execute("INSERT INTO comments VALUES ('{}')".format(com))
     con.commit()
     return {'isSuccess' : True}
@@ -72,21 +70,27 @@ def ssrf_():
     url = request.json['url'] or None
     if url == None:
         return {'data' : "please, give me a url"}
-    soup =  BeautifulSoup(urlopen(url, cookies={"user":"trung"}), "html.parser" )
+    req = urlopen
+    soup =  BeautifulSoup(req(url), "html.parser" )
     return {'data' : str(soup)}
 
 @web.route('/admin')
 def admin():
-    return render_template('admin.html')
-
+    try:
+        session['user']
+        return render_template('admin.html')
+    except:
+        return redirect('/login')
 @api.route('/admin', methods=['POST'])
 def admin_():
-    if request.cookies['user'] == None:
-        return redirect('login')
     try:
-        return {'data': os.popen(f'ping -c 4 {request.json["host"]}').read()}
-    except Exception as e:
-        return {'data': str(e)}
+        session['user']
+        try:
+            return {'data': os.popen(f'ping -c 4 {request.json["host"]}').read()}
+        except Exception as e:
+            return {'data': str(e)}
+    except:
+        return redirect('/login')
     
 @web.route('/login')
 def login():
@@ -99,5 +103,7 @@ def login_():
     val = (username, password)
     result = cur.execute(sql, val).fetchone()
 
-
-    return {'data' : True if result != None else False}
+    if result != None:
+        session['user'] = result[0]
+        return {'data' : True}
+    return {'data' : False}

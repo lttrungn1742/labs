@@ -61,7 +61,8 @@
                 .then((response) => response.json()
                     .then((resp) => {
                         $("#comment-area").empty()
-                       $("#comment-area").append(`${resp.data}`)
+                       $("#comment-area").append(`${resp.data == false ? "Login fail" : "Login success"}`)
+                       resp.data === true ? window.location.replace('/admin') : pass
                     }))
                 .catch((error) => {
                     $("#comment-area").empty()
