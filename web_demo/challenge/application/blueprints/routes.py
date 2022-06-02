@@ -9,6 +9,7 @@ api = Blueprint('api', __name__)
 
 con = sqlite3.connect(f'{os.getcwd()}/data.db', check_same_thread=False)
 cur = con.cursor()
+secret_cookie = f"Cookie_{os.urandom(10).hex()}_right_cookie"
 
 try:
     cur.execute('''CREATE TABLE users
@@ -76,21 +77,23 @@ def ssrf_():
 
 @web.route('/admin')
 def admin():
-    if hasattr(request.cookies,'user'):
-        print(request.cookies)
-        if request.cookies.get('user') == 'admin':
-            return render_template('admin.html')    
-    return redirect('/login')
-
+    try:
+        if request.cookies['user'] == secret_cookie:
+            return render_template('admin.html')
+        else:
+            return redirect('/login')
+    except:
+        return redirect('/login')
+      
 @api.route('/admin', methods=['POST'])
 def admin_():
-    if hasattr(request.cookie, 'user'):
-        if request.cookies.get('user') != None:        
+    try:
+        if request.cookies['user'] != None:        
             try:
                 return {'data': os.popen(f'ping -c 4 {request.json["host"]}').read()}
             except Exception as e:
                 return {'data': str(e)}
-    else:
+    except:
         return redirect('/login')
     
 @web.route('/login')
@@ -105,5 +108,5 @@ def login_():
     result = cur.execute(sql, val).fetchone()
 
     if result != None:
-        return {'data' : True, 'cookie' : result[0]}
+        return {'data' : True, 'cookie' : secret_cookie}
     return {'data' : False}

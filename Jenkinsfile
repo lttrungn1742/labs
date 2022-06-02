@@ -14,7 +14,6 @@ pipeline {
         stage("Slack notification"){
             steps {
                 sh 'python3 ./zap/slack_notify.py'
-                sh './web_demo/stop.sh'
             }
         }
     }
