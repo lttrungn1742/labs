@@ -25,6 +25,11 @@ except sqlite3.OperationalError:
 def index():
     return render_template('index.html')
 
+
+@api.route('/healthcheck')
+def healthcheck():
+    return 'I am ok'
+
 @web.route('/upload')
 def upload():
     return render_template('upload.html')
@@ -54,7 +59,7 @@ def comment():
     con.commit()
     return {'isSuccess' : True}
 
-@web.route('/comments')
+@api.route('/comments')
 def data_comments():
     data = [row[0] for row in cur.execute('SELECT comment FROM comments')]
     if len(data) > 10:
