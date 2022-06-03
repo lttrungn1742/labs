@@ -1,4 +1,13 @@
 version: '2'
+networks:
+  OwaspZAP: 
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.200.0/24
+    driver_opts:
+      com.docker.network.bridge.name: OwaspZAP
+
 services:
   nginx:
     build: nginx
@@ -11,8 +20,13 @@ services:
     volumes:
       - ./nginx/index:/usr/share/nginx/html:rw
       - ./nginx/conf:/etc/nginx/conf.d/
+    networks:
+      OwaspZAP:
+        ipv4_address: 172.30.200.10
 
   web:
     build: app_flask
     volumes:
       - ./app_flask/challenge:/app
+    networks:
+      - OwaspZAP

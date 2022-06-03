@@ -3,8 +3,9 @@ import sys
 web_hook = "https://hooks.slack.com/services/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"
 
 try:
-	report = json.loads(open(sys.argv[1],'r').read())
-except:
+	report = json.loads(open('/tmp/report_zap.json','r').read())
+except Exception as e:
+    print(e)
     exit("No such report")
 
 message = [
