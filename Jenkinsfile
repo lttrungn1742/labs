@@ -3,17 +3,17 @@ pipeline {
     stages {
         stage('Build'){
             steps {
-                sh './pre_build.sh'
+                sh './script/pre_build.sh'
             }
         }
         stage('Deploy'){
             steps {
-                sh './build.sh'
+                sh './script/build.sh'
             }
         }
         stage('Scan') {
             steps {
-                sh './scan.sh'
+                sh './script/scan.sh'
             }
         }
         stage("Notification"){
