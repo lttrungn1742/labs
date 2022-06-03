@@ -4,7 +4,6 @@ import sqlite3, os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-web = Blueprint('web', __name__)
 api = Blueprint('api', __name__)
 
 con = sqlite3.connect(f'{os.getcwd()}/data.db', check_same_thread=False)

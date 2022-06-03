@@ -13,7 +13,8 @@ pipeline {
         }
         stage("Slack notification"){
             steps {
-                sh 'python3 ./zap/slack_notify.py'
+                sh 'python3 ./zap/slack_notify.py /tmp/report_zap.json'
+                sh 'cd web && docker-compose down'
             }
         }
     }

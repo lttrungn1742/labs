@@ -1,2 +1,2 @@
-docker run -v /tmp:/zap/wrk/:rw  --link web_demo -t owasp/zap2docker-weekly zap-full-scan.py -t http://web_demo -J json.html
+docker run -v /tmp:/zap/wrk/:rw -t owasp/zap2docker-weekly zap-full-scan.py -t http://localhost:65223 -J report_zap.json
 #docker rm -f web_demo
