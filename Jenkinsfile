@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Zap') {
             steps {
-                sh './zap/full_scan.sh || echo "Done Scan"'
+                sh './zap/full_scan.sh"'
             }
         }
         stage("Slack notification"){
