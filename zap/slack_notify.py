@@ -3,9 +3,8 @@ import sys
 web_hook = "https://hooks.slack.com/services/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"
 
 try:
-	report = json.loads(open('/tmp/report_zap.json','r').read())
-except Exception as e:
-    print(e)
+	report = json.loads(open('/tmp/report.json','r').read())
+except:
     exit("No such report")
 
 message = [
@@ -22,6 +21,7 @@ message = [
 for site in report['site']:
     if site['alerts'] == []:
         continue
+    d = 0
     for alerts in site['alerts']:
         fields =  [
 				{
@@ -34,23 +34,25 @@ for site in report['site']:
 				}
 		]
         
-        payload_attack = [] #'\n'.join([instance['attack'] for instance in alerts['instances']]) 
-        for instance in alerts['instances']:
-            if instance['attack'] == '':
-                continue
-            payload_attack.append(instance['attack'])
+        # payload_attack = [] 
+        # for instance in alerts['instances']:
+        #     if instance['attack'] == '':
+        #         continue
+        #     payload_attack.append(instance['attack'])
             
-        if payload_attack != []:
-            fields.append(
-                {
-					"type": "mrkdwn",
-					"text": "*payload attack:*\n" + '\n'.join(payload_attack)
-				})
+        # if payload_attack != []:
+        #     fields.append(
+        #         {
+		# 			"type": "mrkdwn",
+		# 			"text": "*payload attack:*\n" + '\n'.join(payload_attack)
+		# 		})
         
         message.append({
-			"type": "section",
-			"fields": fields
-		})
+				"type": "section",
+				"fields": fields
+			})
+
+
         
 payload = {
     'as_user': False,

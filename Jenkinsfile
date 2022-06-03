@@ -3,20 +3,17 @@ pipeline {
     stages {
         stage('Build and Deploy'){
             steps {
-
-
-                sh 'cd web && docker-compose down && docker-compose up -d '
+                sh 'docker-compose --file web/docker-compose.yml build && docker-compose --file web/docker-compose.yml up web nginx'
             }
         }
-        stage('Zap') {
+        stage('Scan') {
             steps {
-                sh 'docker run -v /tmp:/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://172.30.200.10:65223 -J report_zap.json'
-                sh 'cd web && docker-compose down'
+                sh 'docker-compose --file web/docker-compose.yml up scaner ; docker-compose --file web/docker-compose.yml down'
             }
         }
         stage("Slack notification"){
             steps {
-                sh 'python3 ./zap/slack_notify.py /tmp/report_zap.json'
+                sh 'python3 ./zap/slack_notify.py /tmp/report.json'
             }
         }
     }
