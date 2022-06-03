@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Zap') {
             steps {
-                sh './zap/full_scan.sh"'
+                sh 'docker run -v /tmp:/zap/wrk/:rw -t owasp/zap2docker-weekly zap-full-scan.py -t http://localhost:65223 -J report_zap.json'
             }
         }
         stage("Slack notification"){
