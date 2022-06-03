@@ -21,22 +21,9 @@ try:
 except sqlite3.OperationalError:
     pass
 
-@web.route('/')
-def index():
-    return render_template('index.html')
-
-
 @api.route('/healthcheck')
 def healthcheck():
     return 'I am ok'
-
-@web.route('/upload')
-def upload():
-    return render_template('upload.html')
-
-@web.route('/xss')
-def xss():
-    return render_template("xss.html")
 
 @api.route('/unslippy', methods=['POST'])
 def cache():
@@ -67,10 +54,6 @@ def data_comments():
         con.commit()
     return {'data': data}
 
-@web.route('/ssrf')
-def ssrf():
-    return render_template('ssrf.html')
-
 @api.route('/ssrf', methods=['POST'])
 def ssrf_():
     url = request.json['url'] or None
@@ -80,16 +63,6 @@ def ssrf_():
     soup =  BeautifulSoup(req(url), "html.parser" )
     return {'data' : str(soup)}
 
-@web.route('/admin')
-def admin():
-    try:
-        if request.cookies['user'] == secret_cookie:
-            return render_template('admin.html')
-        else:
-            return redirect('/login')
-    except:
-        return redirect('/login')
-      
 @api.route('/admin', methods=['POST'])
 def admin_():
     try:
@@ -101,10 +74,6 @@ def admin_():
     except:
         return redirect('/login')
     
-@web.route('/login')
-def login():
-    return render_template('login.html')
-
 @api.route('/login', methods=['POST'])
 def login_():
     username, password = request.json['username'], request.json['password']
