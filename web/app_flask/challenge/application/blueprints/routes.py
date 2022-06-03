@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, request, render_template, abort
+from flask import Blueprint, redirect, request, abort
 from application.util import extract_from_archive
 import sqlite3, os
 from urllib.request import urlopen

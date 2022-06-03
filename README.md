@@ -1,7 +1,7 @@
-# Demo zap
+# Owasp Zap testing
 
 ## to run web application
-`./web_demo/build_run.sh`
+`./build.sh`
 
 ## payload to exploit xss
 ```

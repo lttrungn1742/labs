@@ -6,6 +6,8 @@ services:
     - NGINX_PORT=80
     links:
       - web
+    ports:
+      - 80:80
     volumes:
       - ./nginx/index:/usr/share/nginx/html:rw
       - ./nginx/conf:/etc/nginx/conf.d/
@@ -14,9 +16,19 @@ services:
     build: app_flask
     volumes:
       - ./app_flask/challenge:/app
+    links:
+      - database
+    environment:
+      - passwdMysql=V1etL1nk0waspZap@!
+
+  database:
+    image: mysql:5.7
+    environment:
+     - MYSQL_ROOT_PASSWORD=V1etL1nk0waspZap@!
 
   scaner:
     image: owasp/zap2docker-stable
     volumes:
       - /tmp:/zap/wrk/:rw
     command: "zap-full-scan.py -t http://nginx -J report.json -d"
+
