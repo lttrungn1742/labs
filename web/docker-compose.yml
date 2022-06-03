@@ -26,7 +26,6 @@ services:
     environment:
      - MYSQL_ROOT_PASSWORD=V1etL1nk0waspZap@!
 
-
   scaner:
     image: owasp/zap2docker-stable
     volumes:
