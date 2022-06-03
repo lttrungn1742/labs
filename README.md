@@ -1,7 +1,10 @@
 # Owasp Zap testing
 
 ## to run web application
-`./build.sh`
+```
+./script/pre_build.sh
+./script/build.sh
+```
 
 ## payload to exploit xss
 ```
