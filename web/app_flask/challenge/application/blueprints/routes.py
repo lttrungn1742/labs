@@ -4,8 +4,8 @@ import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from application import db, token
-api = Blueprint('api', __name__)
 
+api = Blueprint('api', __name__)
 
 @api.route('/healthcheck')
 def healthcheck():
