@@ -1,14 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('Build and Deploy'){
+        stage('Build'){
             steps {
-                sh 'docker-compose --file web/docker-compose.yml build && docker-compose --file web/docker-compose.yml up web nginx'
+                sh 'docker-compose --file web/docker-compose.yml build'
+            }
+        }
+        stage('Deploy'){
+            steps {
+                sh 'docker-compose --file web/docker-compose.yml up -d web nginx'
             }
         }
         stage('Scan') {
             steps {
-                sh 'docker-compose --file web/docker-compose.yml up scaner ; docker-compose --file web/docker-compose.yml down'
+                sh 'docker-compose --file web/docker-compose.yml up scaner '
+                sh 'docker-compose --file web/docker-compose.yml down'
             }
         }
         stage("Slack notification"){

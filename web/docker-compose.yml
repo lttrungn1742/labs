@@ -19,4 +19,4 @@ services:
     image: owasp/zap2docker-stable
     volumes:
       - /tmp:/zap/wrk/:rw
-    command: "zap-full-scan.py -t http://nginx -J report.json"
+    command: "zap-full-scan.py -t http://nginx -J report.json -d"
