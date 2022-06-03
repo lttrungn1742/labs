@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build and Deploy'){
             steps {
-                sh 'cd web && docker-compose up -d'
+                sh 'cd web && docker-compose up -d || docker-compose down'
             }
         }
         stage('Zap') {
