@@ -1,19 +1,25 @@
 pipeline {
     agent any
     stages {
-        stage('Build and Deploy'){
+        stage('Build'){
             steps {
-                sh './web_demo/build_run.sh'
+                sh 'docker-compose --file web/docker-compose.yml build'
             }
         }
-        stage('Zap') {
+        stage('Deploy'){
             steps {
-                sh './zap/full_scan.sh || echo "Done Scan"'
+                sh 'docker-compose --file web/docker-compose.yml up -d web nginx'
+            }
+        }
+        stage('Scan') {
+            steps {
+                sh 'docker-compose --file web/docker-compose.yml up scaner '
+                sh 'docker-compose --file web/docker-compose.yml down'
             }
         }
         stage("Slack notification"){
             steps {
-                sh 'python3 ./zap/slack_notify.py'
+                sh 'python3 ./zap/slack_notify.py /tmp/report.json'
             }
         }
     }
