@@ -7,7 +7,8 @@ RUN apk add --update --no-cache supervisor
 RUN python -m pip install --upgrade pip
 
 # Install dependencies
-RUN pip install Flask bs4
+COPY requirements.txt /tmp/
+RUN pip install -r /tmp/requirements.txt
 
 # Setup app
 RUN mkdir -p /app

@@ -3,23 +3,22 @@ pipeline {
     stages {
         stage('Build'){
             steps {
-                sh 'docker-compose --file web/docker-compose.yml build'
+                sh './pre_build.sh'
             }
         }
         stage('Deploy'){
             steps {
-                sh 'docker-compose --file web/docker-compose.yml up -d web nginx'
+                sh './build.sh'
             }
         }
         stage('Scan') {
             steps {
-                sh 'docker-compose --file web/docker-compose.yml up scaner '
-                sh 'docker-compose --file web/docker-compose.yml down'
+                sh './scan.sh'
             }
         }
-        stage("Slack notification"){
+        stage("Notification"){
             steps {
-                sh 'python3 ./zap/slack_notify.py /tmp/report.json'
+                sh 'python3 slack_notify.py /tmp/report.json'
             }
         }
     }
