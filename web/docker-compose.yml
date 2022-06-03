@@ -4,7 +4,7 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.30.200.0/24
+        - subnet: 172.30.201.0/24
     driver_opts:
       com.docker.network.bridge.name: OwaspZAP
 
@@ -22,7 +22,7 @@ services:
       - ./nginx/conf:/etc/nginx/conf.d/
     networks:
       OwaspZAP:
-        ipv4_address: 172.30.200.10
+        ipv4_address: 172.30.201.10
 
   web:
     build: app_flask
