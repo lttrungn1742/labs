@@ -22,9 +22,10 @@ services:
       - passwdMysql=V1etL1nk0waspZap@!
 
   database:
-    image: mysql:5.7
+    build: mysql
     environment:
      - MYSQL_ROOT_PASSWORD=V1etL1nk0waspZap@!
+
 
   scaner:
     image: owasp/zap2docker-stable
