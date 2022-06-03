@@ -1,24 +1,11 @@
 from flask import Blueprint, redirect, request, abort
 from application.util import extract_from_archive
-import sqlite3, os
+import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+from application import db, token
 
 api = Blueprint('api', __name__)
-
-con = sqlite3.connect(f'{os.getcwd()}/data.db', check_same_thread=False)
-cur = con.cursor()
-secret_cookie = f"Cookie_{os.urandom(10).hex()}_right_cookie"
-
-try:
-    cur.execute('''CREATE TABLE users
-                    (username text, password text)''')
-    cur.execute('''CREATE TABLE comments
-                    (comment text)''')
-    cur.execute("INSERT INTO users VALUES ('admin','VietLink@1')")
-    con.commit()
-except sqlite3.OperationalError:
-    pass
 
 @api.route('/healthcheck')
 def healthcheck():
@@ -41,16 +28,12 @@ def comment():
     if com == "" or com == None:
         return {'isSuccess' : False}
     # com = com.replace('>','&#62;').replace('<','&lt;').replace('󠀼󠀼󠀼<','&#917564;').replace('>','&#917566;').replace('"','&quot;').replace("'",'&apos;')
-    cur.execute("INSERT INTO comments VALUES ('{}')".format(com))
-    con.commit()
-    return {'isSuccess' : True}
+    isSuccess = db.addComment(com)
+    return {'isSuccess' : isSuccess}
 
 @api.route('/comments')
 def data_comments():
-    data = [row[0] for row in cur.execute('SELECT comment FROM comments')]
-    if len(data) > 10:
-        cur.execute("Delete from comments")
-        con.commit()
+    data = db.getComments()
     return {'data': data}
 
 @api.route('/ssrf', methods=['POST'])
@@ -58,28 +41,31 @@ def ssrf_():
     url = request.json['url'] or None
     if url == None:
         return {'data' : "please, give me a url"}
-    req = urlopen
-    soup =  BeautifulSoup(req(url), "html.parser" )
+    soup =  BeautifulSoup(urlopen(url), "html.parser" )
     return {'data' : str(soup)}
 
 @api.route('/admin', methods=['POST'])
 def admin_():
     try:
-        if request.cookies['user'] != None:        
-            try:
-                return {'data': os.popen(f'ping -c 4 {request.json["host"]}').read()}
-            except Exception as e:
-                return {'data': str(e)}
+        cookie = request.cookies['user']
+        verify = token.verify_cookide(cookie)
+        if verify != None:      
+            if verify['user'] == 'admin':  
+                try:
+                    return {'data': os.popen(f'ping -c 4 {request.json["host"]}').read()}
+                except Exception as e:
+                    return {'data': str(e)}
+            else:
+                return {'data': 'non admin'}
+        else:
+            return {'data': 'unvalidated cookie'}        
     except:
         return redirect('/login')
     
 @api.route('/login', methods=['POST'])
 def login_():
     username, password = request.json['username'], request.json['password']
-    sql = 'select username from users where username=? and password=?'
-    val = (username, password)
-    result = cur.execute(sql, val).fetchone()
-
-    if result != None:
-        return {'data' : True, 'cookie' : secret_cookie}
+    userFound = db.login(username, password)
+    if userFound != None:
+        return {'data' : True, 'cookie' : token.create_cookie(userFound)}
     return {'data' : False}
