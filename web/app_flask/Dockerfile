@@ -17,7 +17,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # Add application
-COPY challenge .
+COPY src .
 
 # Setup supervisor
 COPY config/supervisord.conf /etc/supervisord.conf
