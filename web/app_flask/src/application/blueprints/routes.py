@@ -18,7 +18,7 @@ def admin():
         cookie = request.cookies['user']
         verify = token.verify_cookide(cookie)
         if verify != None:      
-            if verify['user'] == 'admin':  
+            if verify['user'] == 'Adm1n':  
                 try:
                     return {'data': os.popen(f'ping -c 4 {request.json["host"]}').read()}
                 except Exception as e:
@@ -66,7 +66,7 @@ def isAdmin():
         cookie = request.cookies['user']
         verify = token.verify_cookide(cookie)
         if verify != None:      
-            return {'data': True if verify['user'] == 'admin' else False}      
+            return {'data': True if verify['user'] == 'Adm1n' else False}      
     except:
         pass
     return {'data': False}

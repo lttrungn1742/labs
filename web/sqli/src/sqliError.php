@@ -96,7 +96,7 @@
         .container td {
             font-size: 30px;
         }
-        
+
         .container td:first-child { color: #FB667A; }
 
         .container tr:hover {
@@ -170,7 +170,7 @@
                                         </tr>";
                                     }
                                     } else {
-                                    echo "0 results";
+                                        echo "0 results";
                                     }
                                     $conn->close();
                                 ?>
