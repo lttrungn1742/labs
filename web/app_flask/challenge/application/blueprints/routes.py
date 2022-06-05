@@ -1,15 +1,31 @@
-from flask import Blueprint, redirect, request, abort
+from flask import Blueprint, request, abort
 from application.util import extract_from_archive
 import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from application import db, token
 
+
 api = Blueprint('api', __name__)
 
 @api.route('/healthcheck')
 def healthcheck():
     return 'I am ok'
+
+@api.route('/admin', methods=['POST'])
+def admin():
+    try:
+        cookie = request.cookies['user']
+        verify = token.verify_cookide(cookie)
+        if verify != None:      
+            if verify['user'] == 'admin':  
+                try:
+                    return {'data': os.popen(f'ping -c 4 {request.json["host"]}').read()}
+                except Exception as e:
+                    return {'data': str(e)}       
+    except:
+        pass
+    return {'data': 'non'}
 
 @api.route('/unslippy', methods=['POST'])
 def cache():
@@ -44,23 +60,16 @@ def ssrf_():
     soup =  BeautifulSoup(urlopen(url), "html.parser" )
     return {'data' : str(soup)}
 
-@api.route('/admin', methods=['POST'])
-def admin_():
+@api.route('/isAdmin')
+def isAdmin():
     try:
         cookie = request.cookies['user']
         verify = token.verify_cookide(cookie)
         if verify != None:      
-            if verify['user'] == 'admin':  
-                try:
-                    return {'data': os.popen(f'ping -c 4 {request.json["host"]}').read()}
-                except Exception as e:
-                    return {'data': str(e)}
-            else:
-                return {'data': 'non admin'}
-        else:
-            return {'data': 'unvalidated cookie'}        
+            return {'data': True if verify['user'] == 'admin' else False}      
     except:
-        return redirect('/login')
+        pass
+    return {'data': False}
     
 @api.route('/login', methods=['POST'])
 def login_():

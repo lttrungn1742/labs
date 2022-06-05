@@ -48,7 +48,8 @@
             })
         });
         
-        const comment = () => {      
+        const comment = () => {     
+            $("#comment-area").empty() 
             fetch('/api/login', {
                     method: 'POST',
                     credentials: 'include',
@@ -60,20 +61,16 @@
                 })
                 .then((response) => response.json()
                     .then((resp) => {
-                        $("#comment-area").empty()
-                       $("#comment-area").append(`${resp.data == false ? "Login fail" : "Login success"}`)
-                       resp.data === true ? redirect_admin(resp.cookie) : pass
+                       resp.data === true ? redirect_admin(resp.cookie) : $("#comment-area").append("Login fail")
                     }))
                 .catch((error) => {
-                    $("#comment-area").empty()
-                       $("#comment-area").append(`${error}`)
+                    $("#comment-area").append(`${error}`)
                 });
         }
 
         const redirect_admin = (cookie) => {
-          //  Cookies.set('user', cookie);
             setCookie('user', cookie, 1);
-            window.location.replace('/admin')
+            $("#comment-area").append(`<a href="/admin.html">Login success redirect to admin page</a>`)
         }
         
         function setCookie(name,value,days) {

@@ -8,7 +8,6 @@ con = mysql.connector.connect(
 )
 cursor = con.cursor()
 
-
 def addComment(com):
   try:
     cursor.execute("INSERT INTO comments VALUES ('{}')".format(com))
@@ -28,11 +27,12 @@ def getComments():
 
 
 def login(username, password):
-  sql = f"""select username from users where username='{username}' and password='{password}' """
+  sql = "select username from users where username='" + username + "' and passwd='" + password + "'"
   try:
-    result = cursor.execute(sql).fetchone()[0]
-    return result
-  except:
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    return result[0]
+  except Exception as e:
     return None
   
   
