@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>SQL  Injection Blind</title>
+    <title>SQL  Injection Union</title>
     <link rel="icon" type="image/png" href="/static/favicon.png">
     <link rel="stylesheet" type="text/css" href="/static/css/prism.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -92,6 +92,11 @@
         .container th {
             background-color: #1F2739;
         }
+
+        .container td {
+            font-size: 30px;
+        }
+
 
         .container td:first-child { color: #FB667A; }
 
