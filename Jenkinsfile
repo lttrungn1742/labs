@@ -18,7 +18,7 @@ pipeline {
         }
         stage("Notification"){
             steps {
-                sh 'python3 slack_notify.py /tmp/report.json'
+                sh 'python3 scripts/slack_notify.py /tmp/report.json'
             }
         }
     }
