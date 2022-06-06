@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>SQL  Injection Blind</title>
+    <title>SQL  Injection Union</title>
     <link rel="icon" type="image/png" href="/static/favicon.png">
     <link rel="stylesheet" type="text/css" href="/static/css/prism.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -93,6 +93,11 @@
             background-color: #1F2739;
         }
 
+        .container td {
+            font-size: 30px;
+        }
+
+
         .container td:first-child { color: #FB667A; }
 
         .container tr:hover {
@@ -130,7 +135,7 @@
                     <h3>Table employee</h3>
                     <form action="sqliUnion.php" method="GET">
                     <div class="input-group">
-                        <h1>Search by id  </h1>
+                        <h1>Search job by id  </h1>
                         <input type="text" id="id" name="id">
                         <input type="submit"  class="btn btn-primary">
                     </div>
@@ -139,22 +144,28 @@
                         <table class="container">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>NAME</th>
-                                    <th>SALARY</th>
+                                    <th>Id</th>
+                                    <th>Title</th>
+                                    <th>Salary</th>
+                                    <th>Location</th>
+                                    <th>Type</th>
+                                    <th>Date</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                     if (isset($_GET['id'])){
-                                        $sql =  "SELECT * FROM employees WHERE id=" . $_GET['id'];
+                                        $sql =  "SELECT * FROM jobs WHERE id=" . $_GET['id'];
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
                                         while($row = $result->fetch_assoc()) {
                                             echo "<tr>
                                                     <td>" . $row["id"] . " </td>
-                                                    <td>" . $row["name"]. " </td>
-                                                    <td> " . $row["salary"]. "$</td>
+                                                    <td>" . $row["title"]. " </td>
+                                                    <td>" . $row["salary"]. "$</td>
+                                                    <td>" . $row["location"]. "</td>
+                                                    <td>" . $row["type"]. "</td>
+                                                    <td>" . $row["date"]. "</td>
                                             </tr>";
                                         }
                                         } else {
