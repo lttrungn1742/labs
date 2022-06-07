@@ -1,25 +1,17 @@
+@Library('vietlink-jenkins-pipeline-library-dev') _
+
 pipeline {
     agent any
+    parameters {
+        choice(name: "NODE_LABEL", choices: ["vietlink-jenkins-1"])
+        string(name: 'PROJECT_NAME', defaultValue: 'vietlink-wordpress', description: 'Enter service name?')
+        choice(name: 'ENVIRONMENT', choices: ['dev'], description: 'Enter short environment name?')
+        choice(name: 'GET_APPROVAL', choices: ['No', 'Yes'], description: 'Do you want to confirm before going to the next or not?')
+    }
     stages {
-        stage('Build'){
+        stage('Test'){
             steps {
-                sh './script/build.sh'
-            }
-        }
-        stage('Deploy'){
-            steps {
-                sh './script/deploy.sh'
-            }
-        }
-        stage('Scan') {
-            steps {
-                sh './script/scan.sh'
-                sh './script/remove.sh'
-            }
-        }
-        stage("Notification"){
-            steps {
-                sh 'python3 script/slack_notify.py /tmp/report.json'
+                get_approval_from_user("${params.GET_APPROVAL}")
             }
         }
     }
