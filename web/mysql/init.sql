@@ -6,7 +6,6 @@ create table users(
     id INT AUTO_INCREMENT, 
     username TEXT, 
     passwd TEXT,
-    role TEXT,
     PRIMARY KEY(id)
 );
 
