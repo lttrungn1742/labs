@@ -1,4 +1,3 @@
-from numpy import character
 import requests, string
 
 characters = string.printable
