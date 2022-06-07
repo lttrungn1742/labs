@@ -27,7 +27,7 @@ def getComments():
 
 
 def login(username, password):
-  sql = "select username from users where username='" + username + "' and passwd='" + password + "'"
+  sql = f"select username from users where username='{username}' and passwd='{password}'"
   try:
     cursor.execute(sql)
     result = cursor.fetchone()
@@ -36,6 +36,13 @@ def login(username, password):
     return None
   
   
-  
+def timebase(username, password):
+  sql = "select * from users where username='" + username + "' and passwd='" + password + "'"
+  try:
+    cursor.execute(sql)
+    result = cursor.fetchone()
+    return result[0]
+  except Exception as e:
+    return None  
   
   
