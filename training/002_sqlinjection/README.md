@@ -61,7 +61,7 @@ def flag():
 print('[+] flag = ',flag())
 ```
 
-## Nosql injection
+### 2.3. Nosql injection
 ```
 import requests, string
 arr = string.digits + string.ascii_letters + "_@{}-/()!\"$%=^[]:;"
