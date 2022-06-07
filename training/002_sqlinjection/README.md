@@ -16,9 +16,9 @@ SELECT column_name(s) FROM table2 -> clause 2
 -> show schema
 
 ### 1.3. Mysql
-`select table_name from information_schema.tables where table_schema=database()`
+- `select table_name from information_schema.tables where table_schema=database()`
 -> show name of tables
-`select column_name from information_schema.columns where table_name=table_name`
+- `select column_name from information_schema.columns where table_name=table_name`
 -> show columns name of that table
 
 ### 1.4. Cheetsheet 
