@@ -88,3 +88,6 @@ n = countchar()
 print('length password ',n)
 print(findpassword(n))
 ```
+### 2.4. Tool sqlmap
+- install: `brew install sqlmap`
+- use: `sqlmap -r file_request --batch -D database --tables`
