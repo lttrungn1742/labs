@@ -30,19 +30,18 @@ def login(username, password):
   sql = f"select username from users where username='{username}' and passwd='{password}'"
   try:
     cursor.execute(sql)
-    result = cursor.fetchone()
+    result = [row[0] for row in cursor.fetchall()]
     return result[0]
   except Exception as e:
     return None
   
   
 def timebase(username, password):
-  sql = "select * from users where username='" + username + "' and passwd='" + password + "'"
+  sql = f"select * from users where username='{username}' and passwd='{password}'"
   try:
     cursor.execute(sql)
-    result = cursor.fetchone()
+    result = [row[0] for row in cursor.fetchall()]
     return result[0]
   except Exception as e:
     return None  
-  
   

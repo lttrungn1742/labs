@@ -72,9 +72,15 @@ def isAdmin():
     return {'data': False}
     
 @api.route('/login', methods=['POST'])
-def login_():
+def login():
     username, password = request.json['username'], request.json['password']
     userFound = db.login(username, password)
     if userFound != None:
         return {'data' : True, 'cookie' : token.create_cookie(userFound)}
     return {'data' : False}
+
+@api.route('/sqliBlind', methods=['POST'])
+def sqliTimeBase():
+    username, password = request.json['username'], request.json['password']
+    userFound = db.timebase(username, password)
+    return {'data' : False if userFound == None else True}
