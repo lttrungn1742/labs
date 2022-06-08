@@ -3,8 +3,7 @@ from application.util import extract_from_archive
 import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-from application import db, token
-
+from application import token, dbMysql, dbMongo
 
 api = Blueprint('api', __name__)
 
@@ -44,12 +43,12 @@ def comment():
     if com == "" or com == None:
         return {'isSuccess' : False}
     # com = com.replace('>','&#62;').replace('<','&lt;').replace('󠀼󠀼󠀼<','&#917564;').replace('>','&#917566;').replace('"','&quot;').replace("'",'&apos;')
-    isSuccess = db.addComment(com)
+    isSuccess = dbMysql.addComment(com)
     return {'isSuccess' : isSuccess}
 
 @api.route('/comments')
 def data_comments():
-    data = db.getComments()
+    data = dbMysql.getComments()
     return {'data': data}
 
 @api.route('/ssrf', methods=['POST'])
@@ -74,7 +73,7 @@ def isAdmin():
 @api.route('/login', methods=['POST'])
 def login():
     username, password = request.json['username'], request.json['password']
-    userFound = db.login(username, password)
+    userFound = dbMysql.login(username, password)
     if userFound != None:
         return {'data' : True, 'cookie' : token.create_cookie(userFound)}
     return {'data' : False}
@@ -82,5 +81,11 @@ def login():
 @api.route('/sqliBlind', methods=['POST'])
 def sqliTimeBase():
     username, password = request.json['username'], request.json['password']
-    userFound = db.timebase(username, password)
+    userFound = dbMysql.timebase(username, password)
     return {'data' : False if userFound == None else True}
+
+@api.route('/sqliMongo', methods=['POST'])
+def sqliMongo():
+    username, password = request.json['username'], request.json['password']
+    result = dbMongo.sqli(username, password)
+    return {'data' : result}
