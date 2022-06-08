@@ -1,4 +1,4 @@
-import mysql.connector, os, token
+import mysql.connector, os
 
 con = mysql.connector.connect(
   host="database",

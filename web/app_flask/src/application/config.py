@@ -1,5 +1,4 @@
 from application.util import generate
-from os.path import abspath
 
 class Config(object):
     SECRET_KEY = generate(50)

