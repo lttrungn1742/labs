@@ -49,3 +49,11 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
     volumes:
       - ./entrypoint/mongodb:/docker-entrypoint-initdb.d/
+      
+  testing_query_mongo:
+    build: testing_query_mongo
+    volumes:
+      - ./testing_query_mongo:/app/:rw
+    command: python /app/query.py
+    environment:
+      - MONGODB_CONNSTRING=mongodb://root:V1etL1nk0waspZap@mongo

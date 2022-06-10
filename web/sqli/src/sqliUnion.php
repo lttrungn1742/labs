@@ -155,7 +155,7 @@
                             <tbody>
                                 <?php
                                     if (isset($_GET['id'])){
-                                        $sql =  "SELECT * FROM jobs WHERE id=" . $_GET['id'];
+                                        $sql =  "SELECT * FROM jobs WHERE id=" . $_GET['id']."LIMIT 1";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
                                         while($row = $result->fetch_assoc()) {
