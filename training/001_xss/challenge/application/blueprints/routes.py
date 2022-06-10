@@ -6,8 +6,10 @@ from bs4 import BeautifulSoup
 
 web = Blueprint('web', __name__)
 api = Blueprint('api', __name__)
+db_path = '/tmp'
 
-con = sqlite3.connect(f'{os.getcwd()}/data.db', check_same_thread=False)
+# con = sqlite3.connect(f'{os.getcwd()}/data.db', check_same_thread=False)
+con = sqlite3.connect(f'{db_path}/data.db', check_same_thread=False)
 cur = con.cursor()
 secret_cookie = f"Cookie_{os.urandom(10).hex()}_right_cookie"
 
@@ -16,7 +18,7 @@ try:
                     (username text, password text)''')
     cur.execute('''CREATE TABLE comments
                     (comment text)''')
-    cur.execute("INSERT INTO users VALUES ('admin','VietLink@1')")
+    cur.execute("INSERT INTO users VALUES ('admin','123456')")
     con.commit()
 except sqlite3.OperationalError:
     pass
@@ -49,8 +51,8 @@ def comment():
     com = request.json['comment'] or None
     if com == "" or com == None:
         return {'isSuccess' : False}
-    # com = com.replace('>','&#62;').replace('<','&lt;').replace('󠀼󠀼󠀼<','&#917564;').replace('>','&#917566;').replace('"','&quot;').replace("'",'&apos;')
-    cur.execute("INSERT INTO comments VALUES ('{}')".format(com))
+    com = com.replace('>','&#62;').replace('<','&lt;').replace('󠀼󠀼󠀼<','&#917564;').replace('>','&#917566;').replace('"','&quot;').replace("'",'&apos;')
+    cur.execute("INSERT INTO comments VALUES (?)", [com])
     con.commit()
     return {'isSuccess' : True}
 
