@@ -1,10 +1,13 @@
 <?php
     include 'db.php';
+    ini_set('display_errors', '1');
+    ini_set('display_startup_errors', '1');
+    error_reporting(E_ALL);
 ?>
 
 <html>
 <head>
-    <title>SQL  Injection Union</title>
+    <title>SQL  Injection Error Base</title>
     <link rel="icon" type="image/png" href="/static/favicon.png">
     <link rel="stylesheet" type="text/css" href="/static/css/prism.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -97,7 +100,6 @@
             font-size: 30px;
         }
 
-
         .container td:first-child { color: #FB667A; }
 
         .container tr:hover {
@@ -133,46 +135,47 @@
             <div class="card-body">
                 <div class="card-text">
                     <h3>Table employee</h3>
-                    <form action="sqliUnion.php" method="GET">
+                    <form action="sqliError.php" method="GET">
                     <div class="input-group">
-                        <h1>Search job by id  </h1>
-                        <input type="text" id="id" name="id">
+                        <select name="orderBy">
+                        <option disabled >Sort by</option>
+                            <option value="name">name</option>
+                            <option value="salary">salary</option>
+                            <option value="id">id</option>
+                        </select>
                         <input type="submit"  class="btn btn-primary">
+   
                     </div>
                     <br>
                     <div>
                         <table class="container">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Title</th>
-                                    <th>Salary</th>
-                                    <th>Location</th>
-                                    <th>Type</th>
-                                    <th>Date</th>
+                                    <th>ID</th>
+                                    <th>NAME</th>
+                                    <th>SALARY</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    if (isset($_GET['id'])){
-                                        $sql =  "SELECT * FROM jobs WHERE id=" . $_GET['id']." LIMIT 1";
-                                        $result = $conn->query($sql);
-                                        if ($result->num_rows > 0) {
-                                        while($row = $result->fetch_assoc()) {
-                                            echo "<tr>
-                                                    <td>" . $row["id"] . " </td>
-                                                    <td>" . $row["title"]. " </td>
-                                                    <td>" . $row["salary"]. "$</td>
-                                                    <td>" . $row["location"]. "</td>
-                                                    <td>" . $row["type"]. "</td>
-                                                    <td>" . $row["date"]. "</td>
-                                            </tr>";
-                                        }
-                                        } else {
-                                            echo "<h1>0 results</h1>";
-                                        }
-                                        $conn->close();
+                                    $sql = "SELECT * FROM employees";
+                                    if (isset($_GET['orderBy'])){
+                                        $sql =  "SELECT * FROM employees ORDER BY " . $_GET['orderBy'];
                                     }
+                                    $result = $conn->query($sql);
+
+                                    if ($result->num_rows > 0) {
+                                    while($row = $result->fetch_assoc()) {
+                                        echo "<tr>
+                                                <td>" . $row["id"] . " </td>
+                                                <td>" . $row["name"]. " </td>
+                                                <td> " . $row["salary"]. "$</td>
+                                        </tr>";
+                                    }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    $conn->close();
                                 ?>
                             </tbody>       
                         </table>

