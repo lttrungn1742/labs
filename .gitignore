@@ -51,3 +51,4 @@ Thumbs.db
 autoCommit.py 
 zap-full-scan.py
 test.py
+.vscode

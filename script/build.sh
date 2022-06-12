@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose --file web/docker-compose.yml build
+docker-compose --file src/docker-compose.yml build

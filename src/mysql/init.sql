@@ -63,3 +63,19 @@ ALTER TABLE `jobs`
 ALTER TABLE `jobs`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
+
+
+CREATE TABLE `log` (
+  `id` int(11) NOT NULL,
+  `username` varchar(500) NOT NULL,
+  `time` datetime NOT NULL,
+  `browser` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+ALTER TABLE `log`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+COMMIT;
