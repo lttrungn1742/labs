@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose --file web/docker-compose.yml up scaner 
+docker-compose --file src/docker-compose.yml up scaner 
