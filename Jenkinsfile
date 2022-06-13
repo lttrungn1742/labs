@@ -17,7 +17,7 @@ pipeline {
     }
     post {
         always {
-            sh 'echo Slack Notify ${env.JOB_NAME}'
+            sh 'echo Slack Notify'
         }
     }
 }
