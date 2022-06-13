@@ -17,7 +17,7 @@ pipeline {
     }
     post {
         always {
-            echo "Fail"
+            sh 'ls -alh'
         }
     }
 }
