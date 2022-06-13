@@ -11,13 +11,13 @@ pipeline {
         }
         stage('Deploy'){
             steps{
-                sh 'echo pass'
+                sh 'exit 1'
             }
         }
     }
     post {
         always {
-            sh 'ls -alh'
+            sh 'echo Slack Notify'
         }
     }
 }
