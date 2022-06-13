@@ -17,9 +17,7 @@ pipeline {
     }
     post {
         always {
-            steps{
-                 sh 'echo Slack Notify'
-            }
+            echo 'I failed :('
         }
     }
 }
