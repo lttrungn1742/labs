@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Deploy'){
             steps{
-                sh 'exit 1'
+                sh 'echo pass'
             }
         }
     }
