@@ -36,24 +36,8 @@ pipeline {
 					CI_ERROR = "NA"
 					}
 				}
-				sh """
-					TODAY=`date +"%b %d"`
-					sed -i "s/%%JOBNAME%%/${env.JOB_NAME}/g" report.html
-					sed -i "s/%%BUILDNO%%/${env.BUILD_NUMBER}/g" report.html
-					sed -i "s/%%DATE%%/\${TODAY}/g" report.html
-					sed -i "s/%%BUILD_STATUS%%/${BUILD_STATUS}/g" report.html
-					sed -i "s/%%ERROR%%/${CI_ERROR}/g" report.html
-					sed -i "s|%%CONSOLE_LOG%%|${CONSOLE_LOG}|g" report.html
-				"""
-				publishHTML(target:[
-					allowMissing: true,
-					alwaysLinkToLastBuild: true, 
-					keepAll: true, 
-					reportDir: "${WORKSPACE}", 
-					reportFiles: 'report.html', 
-					reportName: 'CI-Build-HTML-Report', 
-					reportTitles: 'CI-Build-HTML-Report'
-					])
+			
+		
 				sendSlackNotifcation()
 		}
 	}
