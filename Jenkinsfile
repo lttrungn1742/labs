@@ -22,7 +22,7 @@ pipeline {
                     def result = job.getLastBuild().getResult().toString()
                
                 }
-            sh 'echo Slack Notify'
+            sh 'echo Slack Notify ${env.JOB_NAME}'
         }
     }
 }
