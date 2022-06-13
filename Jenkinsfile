@@ -9,10 +9,20 @@ pipeline {
         choice(name: 'GET_APPROVAL', choices: ['No', 'Yes'], description: 'Do you want to confirm before going to the next or not?')
     }
     stages {
-        stage('Test'){
+        stage('Build'){
             steps {
-                get_approval_from_user("${params.GET_APPROVAL}")
+               sh 'echo pass'
             }
+        }
+        stage('Deploy'){
+            steps{
+                sh 'exit 1'
+            }
+        }
+    }
+    post {
+        always {
+            echo "Fail"
         }
     }
 }
