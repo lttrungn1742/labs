@@ -1,4 +1,0 @@
-Flask 
-bs4 
-mysql-connector-python
-pyjwt
