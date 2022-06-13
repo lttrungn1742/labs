@@ -17,7 +17,7 @@ pipeline {
     }
     post {
         always {
-            echo 'I failed :('
+            echo 'I failed :( ${env.BUILD_URL}'
         }
     }
 }
