@@ -17,7 +17,12 @@ pipeline {
     }
     post {
         always {
-            sh 'echo Slack Notify'
+            script {
+                    def job = jenkins.model.Jenkins.instance.getItemByFullName("Job name")
+                    def result = job.getLastBuild().getResult().toString()
+                    echo "Hello"
+                }
+         //   sh 'echo Slack Notify'
         }
     }
 }
