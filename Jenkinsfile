@@ -5,7 +5,7 @@ pipeline {
 			steps {
 				script {
 					CI_ERROR = "Failed while checking out SCM"
-          				... ### Code for SCM Checkout
+          
 				}
 			}
 		}
@@ -13,7 +13,7 @@ pipeline {
 			steps {
 				script {
 					CI_ERROR = "Failed while building application"
-          				..... ### Code for build application
+          			
 				}
 			}
 		}
@@ -21,7 +21,7 @@ pipeline {
 			steps {
 				script {
 					CI_ERROR = "Failed while deploying application"
-          				.... ## Code for deploying application
+          			
 				}
 			}
 		}
