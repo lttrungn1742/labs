@@ -26,14 +26,14 @@ pipeline {
 				BUILD_STATUS = currentBuild.currentResult
 	
 				sh 'echo slack'
-				sendSlackNotifcation()
+				sendSlackNotifcation("${env.BUILD_URL}")
 			}
 		}
 	}
 }
 
-def sendSlackNotifcation() 
+def sendSlackNotifcation(String BUILD_URL) 
 { 
 	sh 'ls -al'
-	sh 'python slack_notify.py ${env.JOB_URL}'
+	sh 'python slack_notify.py ${BUILD_URL}'
 }
