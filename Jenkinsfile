@@ -23,11 +23,16 @@ pipeline {
 	post {
 		always {
 			script {
-				CONSOLE_LOG = "${env.BUILD_URL}/console"
-				BUILD_STATUS = currentBuild.currentResult
+				// CONSOLE_LOG = "${env.BUILD_URL}/console"
+				// BUILD_STATUS = currentBuild.currentResult
 	
-				sh 'echo slack'
-				sendSlackNotifcation("${env.BUILD_URL}", "${env.EXECUTOR_NUMBER}")
+				// sh 'echo slack'
+				// sendSlackNotifcation("${env.BUILD_URL}", "${env.EXECUTOR_NUMBER}")
+				def job_exec_details = build job: 'build_job', propagate: false, wait: true // Here wait: true means current running job will wait for build_job to finish.
+                    
+                if (job_exec_details.getResult() == 'FAILURE') {
+                    echo "JOB FAILED"
+                }
 			}
 		}
 	}
@@ -36,5 +41,5 @@ pipeline {
 def sendSlackNotifcation(String BUILD_URL, String CI) 
 { 	
 	sh 'echo ${EXECUTOR_NUMBER}'
-//	slackSend(channel: "#general", blocks: blocks)
+	slackSend(channel: "#devops-testing", message: "Build failed. Broadcast to channel for better visibility.")
 }
