@@ -8,9 +8,13 @@ LOG_LEVEL = 'DEBUG'
 # import logging, sys
 
 # import requests
-import sys
+import sys, requests
 
 print(sys.argv[1])
+
+res = requests.get(sys.argv[1] + "/api/json").json()
+
+print(res)
 
 
 
