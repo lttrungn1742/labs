@@ -1,4 +1,3 @@
-import net.sf.json.JSONException
 
 pipeline {
 	agent any
