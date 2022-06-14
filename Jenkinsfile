@@ -43,14 +43,15 @@ def blocks = [
 		]
 	]
 ]
-// def attachments = [
-//   [
-//     text: 'I find your lack of faith disturbing!',
-//     fallback: 'Hey, Vader seems to be mad at you.',
-//     color: '#ff0000'
-//   ]
-// ]
+def attachments = [
+  [
+    text: 'I find your lack of faith disturbing!',
+    fallback: 'Hey, Vader seems to be mad at you.',
+	channel: "#devops-testing",
+    color: '#ff0000'
+  ]
+]
 
-slackSend(channel: "#devops-testing",  blocks: blocks)
+slackSend(attachments: attachments)
 		
 }
