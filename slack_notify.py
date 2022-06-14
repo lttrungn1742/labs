@@ -33,7 +33,7 @@ def build_message(message_json):
     slack_message = {
             "blocks": [
                 {
-                    "type": "header",
+                    'type': 'header',
                     "text": {
                         "type": "plain_text",
                         "text": "Alert Processing Completed",
