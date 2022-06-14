@@ -35,5 +35,5 @@ pipeline {
 def sendSlackNotifcation() 
 { 
 	sh 'ls -al'
-	sh 'python3 slack_notify.py ${env.JOB_URL}'
+	sh 'python slack_notify.py ${env.JOB_URL}'
 }
