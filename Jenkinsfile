@@ -35,7 +35,7 @@ pipeline {
 
 def sendSlackNotifcation() 
 { 
-	def attachments = """[ {"type": "header", "text": {"type": "plain_text", "text": "Alert Processing Completed", "emoji": True}} ]"""
+	def attachments = """[ {\"type\": \"header\", \"text\": {\"type\": \"plain_text\", \"text\": \"Alert Processing Completed\", \"emoji\": True}} ]"""
         echo (attachments)
         slackSend (channel: "#devops-testing", color: "danger",  blocks: attachments)
 		
