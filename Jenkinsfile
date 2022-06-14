@@ -45,13 +45,6 @@ pipeline {
 
 def sendSlackNotifcation() 
 { 
-	if ( currentBuild.currentResult == "SUCCESS" ) {
-		buildSummary = "Job:  ${env.JOB_NAME}\n Status: *SUCCESS*\n Build Report: ${env.BUILD_URL}CI-Build-HTML-Report"
-
-		slackSend color : "good", message: "${buildSummary}", channel: '#devops-testing'
-		}
-	else {
-		buildSummary = "Job:  ${env.JOB_NAME}\n Status: *FAILURE*\n Error description: *${CI_ERROR}* \nBuild Report :${env.BUILD_URL}CI-Build-HTML-Report"
-		slackSend color : "danger", message: "${buildSummary}", channel: '#devops-testing'
-		}
+	blocks = "{'type':'header', 'text': {'type': 'plain_text','text':'Alert Processing Completed','emoji': true}}"
+	slackSend color : "danger", blocks: ${blocks}, channel: '#devops-testing'	
 }
