@@ -35,7 +35,7 @@ pipeline {
 def sendSlackNotifcation() 
 { 
 	blocks = [
-		[
+		"blocks": [
 			"type": "section",
 			"text": [
 				"type": "mrkdwn",
