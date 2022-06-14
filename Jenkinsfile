@@ -35,15 +35,8 @@ pipeline {
 
 def sendSlackNotifcation() 
 { 
-	def jsonSlurper = new JsonSlurper()
-
-
-	def blocks = '{"type": "header", "text": {"type": "plain_text", "text": "Alert Processing Completed", "emoji": true}}'
-
-				
-	def objBlocks = new JsonSlurper().parseText( blocks )
-
-
-	slackSend color : "danger", blocks: "${objBlocks}", channel: '#devops-testing'
+	def attachments = """[ { \"text\": \"And here’s an attachment!\" } ]"""
+        echo (attachments)
+        slackSend (channel: "#devops-testing", color: "danger", message: "Test message", attachments: attachments)
 		
 }
