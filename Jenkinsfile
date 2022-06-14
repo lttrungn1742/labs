@@ -38,7 +38,7 @@ def sendSlackNotifcation()
 	def jsonSlurper = new JsonSlurper()
 
 
-	def blocks = '{"type": "header", "text": {"type": "plain_text", "text": "Alert Processing Completed", "emoji": True}}]'
+	def blocks = '{"type": "header", "text": {"type": "plain_text", "text": "Alert Processing Completed", "emoji": true}}]'
 
 				
 	def objBlocks = new JsonSlurper().parseText( blocks )
