@@ -5,6 +5,7 @@ pipeline {
 		stage ('SCM Checkout') {
 			steps {
 				sh 'echo scm'
+
 			}
 		}
 		stage ('Build Application') {
@@ -26,14 +27,14 @@ pipeline {
 				BUILD_STATUS = currentBuild.currentResult
 	
 				sh 'echo slack'
-				sendSlackNotifcation("${env.BUILD_URL}")
+				sendSlackNotifcation("${env.BUILD_URL}", "${env.EXECUTOR_NUMBER}")
 			}
 		}
 	}
 }
 
-def sendSlackNotifcation(String BUILD_URL) 
-{ 
-	sh 'ls -al'
-	sh 'curl ${BUILD_URL}/api/json'
+def sendSlackNotifcation(String BUILD_URL, String EXECUTOR_NUMBER) 
+{ 	
+	sh 'echo ${EXECUTOR_NUMBER}'
+//	slackSend(channel: "#general", blocks: blocks)
 }
