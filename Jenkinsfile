@@ -51,6 +51,6 @@ def attachments = [
   ]
 ]
 
-slackSend(botUser: true, channel: "#devops-testing", attachments: attachments)
+slackSend(botUser: true, channel: "#devops-testing", blocks: blocks)
 		
 }
