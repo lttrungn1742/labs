@@ -33,7 +33,7 @@ pipeline {
 	}
 }
 
-def sendSlackNotifcation(String BUILD_URL, String EXECUTOR_NUMBER) 
+def sendSlackNotifcation(String BUILD_URL, String CI) 
 { 	
 	sh 'echo ${EXECUTOR_NUMBER}'
 //	slackSend(channel: "#general", blocks: blocks)
