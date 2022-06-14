@@ -36,28 +36,21 @@ def sendSlackNotifcation()
 { 
 def blocks = [
 	[
-		type: "section",
-		text: [
-			type: "mrkdwn",
-			text: "Hello, Assistant to the Regional Manager Dwight! *Michael Scott* wants to know where you'd like to take the Paper Company investors to dinner tonight.\n\n *Please select a restaurant:*"
+		"type": "section",
+		"text": [
+			"type": "mrkdwn",
+			"text": "Hello, Assistant to the Regional Manager Dwight! *Michael Scott* wants to know where you'd like to take the Paper Company investors to dinner tonight.\n\n *Please select a restaurant:*"
 		]
 	]
 ]
-// def attachments = [
-//   [
-//     color: '#ff0000',
-// 	blocks: [
-// 		[
-// 			type: "section",
-// 			text: [
-// 				type: "mrkdwn",
-// 				text: "Hello, Assistant to the Regional Manager Dwight! *Michael Scott* wants to know where you'd like to take the Paper Company investors to dinner tonight.\n\n *Please select a restaurant:*"
-// 			]
-// 		]
-// 	]
-//   ]
-// ]
+def attachments = [
+  [
+    text: 'I find your lack of faith disturbing!',
+    fallback: 'Hey, Vader seems to be mad at you.',
+    color: '#ff0000'
+  ]
+]
 
-slackSend(channel: "#devops-testing", blocks: blocks)
+slackSend(botUser: true, channel: "#devops-testing", attachments: attachments)
 		
 }
