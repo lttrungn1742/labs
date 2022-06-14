@@ -34,7 +34,7 @@ pipeline {
 
 def sendSlackNotifcation() 
 { 
-blocks = [
+def blocks = [
 	[
 		"type": "section",
 		"text": [
@@ -51,6 +51,6 @@ def attachments = [
   ]
 ]
 
-slackSend(channel: "#devops-testing", attachments: attachments)
+slackSend(channel: "#devops-testing", attachments: attachments, blocks: blocks)
 		
 }
