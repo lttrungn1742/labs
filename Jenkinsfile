@@ -43,6 +43,6 @@ blocks = [
 		]
 	]
 ]
-slackSend(channel: "#devops-testing", blocks: blocks)
+slackSend(channel: "#devops-testing", message: "trung")
 		
 }
