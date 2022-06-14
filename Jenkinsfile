@@ -34,16 +34,15 @@ pipeline {
 
 def sendSlackNotifcation() 
 { 
-	blocks = [
-		[
-			"type": "section",
-			"text": [
-				"type": "mrkdwn",
-				"text": "A message *with some bold text* and _some italicized text_."
-			]
+blocks = [
+	[
+		"type": "section",
+		"text": [
+			"type": "mrkdwn",
+			"text": "Hello, Assistant to the Regional Manager Dwight! *Michael Scott* wants to know where you'd like to take the Paper Company investors to dinner tonight.\n\n *Please select a restaurant:*"
 		]
 	]
-
-slackSend(channel: "#devops-testing", message: "trung")
+]
+slackSend(channel: "#devops-testing", blocks: blocks)
 		
 }
