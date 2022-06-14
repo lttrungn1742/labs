@@ -45,13 +45,19 @@ def blocks = [
 ]
 def attachments = [
   [
-    text: 'I find your lack of faith disturbing!',
-    fallback: 'Hey, Vader seems to be mad at you.',
-	channel: '#devops-testing',
-    color: '#ff0000'
+    color: '#ff0000',
+	blocks: [
+		[
+			"type": "section",
+			"text": [
+				"type": "mrkdwn",
+				"text": "Hello, Assistant to the Regional Manager Dwight! *Michael Scott* wants to know where you'd like to take the Paper Company investors to dinner tonight.\n\n *Please select a restaurant:*"
+			]
+		]
+	]
   ]
 ]
 
-slackSend(attachments: attachments)
+slackSend(channel: "#devops-testing", attachments: attachments)
 		
 }
