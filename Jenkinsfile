@@ -41,7 +41,7 @@ def sendSlackNotifcation()
 	def blocks = "[{'type': 'header', 'text': {'type': 'plain_text', 'text': 'Alert Processing Completed', 'emoji': True}}]"
 
 				
-	def objBlocks = new JsonSlurper().parseText( restResponse )
+	def objBlocks = new JsonSlurper().parseText( blocks )
 
 
 	slackSend color : "danger", blocks: "${buildSummary}", channel: '#devops-testing'
