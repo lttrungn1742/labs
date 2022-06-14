@@ -34,23 +34,6 @@ pipeline {
 
 def sendSlackNotifcation() 
 { 
-def blocks = [
-	[
-		"type": "section",
-		"text": [
-			"type": "mrkdwn",
-			"text": "Hello, Assistant to the Regional Manager Dwight! *Michael Scott* wants to know where you'd like to take the Paper Company investors to dinner tonight.\n\n *Please select a restaurant:*"
-		]
-	]
-]
-def attachments = [
-  [
-    text: 'I find your lack of faith disturbing!',
-    fallback: 'Hey, Vader seems to be mad at you.',
-    color: '#ff0000'
-  ]
-]
-
-slackSend(botUser: true, channel: "#devops-testing", blocks: blocks)
+	sh ' ls -al'
 		
 }
