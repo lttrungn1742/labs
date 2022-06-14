@@ -45,6 +45,5 @@ pipeline {
 
 def sendSlackNotifcation() 
 { 
-	blocks = "{'type':'header', 'text': {'type': 'plain_text','text':'Alert Processing Completed','emoji': true}}"
-	slackSend color : "danger", blocks: ${blocks}, channel: '#devops-testing'	
+	slackSend color : "danger", blocks: "{'type':'header', 'text': {'type': 'plain_text','text':'Alert Processing Completed','emoji': true}}", channel: '#devops-testing'	
 }
