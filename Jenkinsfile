@@ -3,26 +3,17 @@ pipeline {
 	stages {
 		stage ('SCM Checkout') {
 			steps {
-				script {
-					CI_ERROR = "Failed while checking out SCM"
-          
-				}
+				sh 'echo scm'
 			}
 		}
 		stage ('Build Application') {
 			steps {
-				script {
-					CI_ERROR = "Failed while building application"
-          			
-				}
+				sh 'echo build'
 			}
 		}
 		stage ('Deploy Application') {
 			steps {
-				script {
-					CI_ERROR = "Failed while deploying application"
-          			
-				}
+				sh 'echo deploy'
 			}
 		}
 	}
@@ -32,30 +23,29 @@ pipeline {
 			script {
 				CONSOLE_LOG = "${env.BUILD_URL}/console"
 				BUILD_STATUS = currentBuild.currentResult
-				if (currentBuild.currentResult == 'SUCCESS') {
-					CI_ERROR = "NA"
-					}
-				}
+	
 			
 		
-				sendSlackNotifcation()
+			//	sendSlackNotifcation()
 		}
 	}
 }
 
-def sendSlackNotifcation() 
-{ 
+// def sendSlackNotifcation() 
+// { 
+// 	def jsonSlurper = new JsonSlurper()
+// 	def object = jsonSlurper.parseText('{ "name": "John Doe" } /* some comment */')
 
-	buildSummary = [
-				{
-                    "type": "header",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "Alert Processing Completed",
-                        "emoji": True
-                    }
-        		}
-			]
-	slackSend color : "danger", blocks: "${buildSummary}", channel: '#devops-testing'
+// 	buildSummary = [
+// 				{
+//                     "type": "header",
+//                     "text": {
+//                         "type": "plain_text",
+//                         "text": "Alert Processing Completed",
+//                         "emoji": True
+//                     }
+//         		}
+// 			]
+// 	slackSend color : "danger", blocks: "${buildSummary}", channel: '#devops-testing'
 		
-}
+// }
