@@ -15,7 +15,7 @@ pipeline {
 		}
 		stage ('Deploy Application') {
 			steps {
-				sh 'echo deploy'
+				sh 'exit 1'
 			}
 		}
 	}
