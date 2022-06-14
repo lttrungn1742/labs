@@ -44,6 +44,6 @@ def sendSlackNotifcation()
 	def objBlocks = new JsonSlurper().parseText( blocks )
 
 
-	slackSend color : "danger", blocks: "${buildSummary}", channel: '#devops-testing'
+	slackSend color : "danger", blocks: "${objBlocks}", channel: '#devops-testing'
 		
 }
