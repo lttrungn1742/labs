@@ -24,7 +24,7 @@ pipeline {
 				CONSOLE_LOG = "${env.BUILD_URL}/console"
 				BUILD_STATUS = currentBuild.currentResult
 	
-			
+				sh 'echo slack'
 		
 			//	sendSlackNotifcation()
 			}
