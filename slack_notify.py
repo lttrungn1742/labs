@@ -40,70 +40,75 @@ def build_message(message_json):
                         "emoji": True
                     }
                 },
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": "*<google.com|{}>*".format("asasas")
-                    }
-                },
-                {
-                    "type": "section",
-                    "fields": [
-                        {
-                            "type": "mrkdwn",
-                            "text": "*AlertId:* {}".format(message_json['alert_info']['alert_id'])
-                        },
-                        {
-                            "type": "mrkdwn",
-                            "text": "*AlertName:* {}".format(message_json['alert_info']['alert_name'])
-                        },
-                        {
-                            "type": "mrkdwn",
-                            "text": "*Alert Time:* {}".format(message_json['alert_info']['alert_time'])
-                        }
-                    ]
-                },
-                {
-                    "type": "divider"
-                },
-                {
-                    "type": "section",
-                    "fields": [
-                        {
-                            "type": "mrkdwn",
-                            "text": "*Now Status:* {}".format(message_json['now_status'])
-                        },
-                        {
-                            "type": "mrkdwn",
-                            "text": "*What Happened:* {}".format(message_json['what_happended'])
-                        }, {
-                            "type": "mrkdwn",
-                            "text": "*Reason:* {}".format(message_json['reason'])
-                        }, {
-                            "type": "mrkdwn",
-                            "text": "*Next Action:* {}".format(message_json['next_action'])
-                        }
-                    ]
-                },
+                # {
+                #     "type": "section",
+                #     "text": {
+                #         "type": "mrkdwn",
+                #         "text": "*<google.com|{}>*".format("asasas")
+                #     }
+                # },
+                # {
+                #     "type": "section",
+                #     "fields": [
+                #         {
+                #             "type": "mrkdwn",
+                #             "text": "*AlertId:* {}".format(message_json['alert_info']['alert_id'])
+                #         },
+                #         {
+                #             "type": "mrkdwn",
+                #             "text": "*AlertName:* {}".format(message_json['alert_info']['alert_name'])
+                #         },
+                #         {
+                #             "type": "mrkdwn",
+                #             "text": "*Alert Time:* {}".format(message_json['alert_info']['alert_time'])
+                #         }
+                #     ]
+                # },
+                # {
+                #     "type": "divider"
+                # },
+                # {
+                #     "type": "section",
+                #     "fields": [
+                #         {
+                #             "type": "mrkdwn",
+                #             "text": "*Now Status:* {}".format(message_json['now_status'])
+                #         },
+                #         {
+                #             "type": "mrkdwn",
+                #             "text": "*What Happened:* {}".format(message_json['what_happended'])
+                #         }, {
+                #             "type": "mrkdwn",
+                #             "text": "*Reason:* {}".format(message_json['reason'])
+                #         }, {
+                #             "type": "mrkdwn",
+                #             "text": "*Next Action:* {}".format(message_json['next_action'])
+                #         }
+                #     ]
+                # },
             ]
     }
+    
+    print(slack_message)
     return slack_message
 
-try:    
-    message_to_send = build_message(message_json)
-    message_to_send.update({
-                "username": "Jenkins testing",
-                "icon_emoji": ":cooldoge:",
-                "channel": '#devops-testing',      
-    })
-    response = client.chat_postMessage(
-        **message_to_send
-    )
 
-except SlackApiError as e:
-    assert e.response["ok"] is False
-    assert e.response["error"] 
-    logger.debug(f"Got an error: {e.response['error']}")
+build_message(message_json)
+
+# try:    
+#     message_to_send = build_message(message_json)
+#     message_to_send.update({
+#                 "username": "Jenkins testing",
+#                 "icon_emoji": ":cooldoge:",
+#                 "channel": '#devops-testing',      
+#     })
+#     response = client.chat_postMessage(
+#         **message_to_send
+#     )
+
+# except SlackApiError as e:
+#     assert e.response["ok"] is False
+#     assert e.response["error"] 
+#     logger.debug(f"Got an error: {e.response['error']}")
 
     
