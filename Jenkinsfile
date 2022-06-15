@@ -51,5 +51,5 @@ def sendSlackNotifcation(CHANNEL, CONSOLE_LOG, JOB_NAME, isSuccess = true)
 	}
 	
 
-	slackSend(color: color, channel: CHANNEL, message: message + "*Console log:* `${CONSOLE_LOG}`")
+	slackSend(color: color, channel: CHANNEL, message: message + "<${CONSOLE_LOG}|*Console log:*>")
 }
