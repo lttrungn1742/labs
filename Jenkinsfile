@@ -24,15 +24,19 @@ pipeline {
 		
 		success {
 			script {
-				// CONSOLE_LOG = "${env.BUILD_URL}/console"
-				// BUILD_STATUS = currentBuild.currentResult
-				
+				 CONSOLE_LOG = "${env.BUILD_URL}/console"
+				 BUILD_STATUS = currentBuild.currentResult
+				sh 'echo ${CONSOLE_LOG}'
+				sh 'echo ${BUILD_STATUS}'
 			}
 		}
 
 		failure {
 			script {
-				
+				CONSOLE_LOG = "${env.BUILD_URL}/console"
+				BUILD_STATUS = currentBuild.currentResult
+				sh 'echo ${CONSOLE_LOG}'
+				sh 'echo ${BUILD_STATUS}'
 			}
 		}
 	}
