@@ -25,14 +25,14 @@ pipeline {
 		success {
 			script {
 				def CONSOLE_LOG = "${env.BUILD_URL}/console"
-				sh "SUCCESS"
+				sendSlackNotifcation("#devops-testing",CONSOLE_LOG, "${env.JOB_NAME}")
 			}
 		}
 
 		failure {
 			script {
 				def CONSOLE_LOG = "${env.BUILD_URL}/console"
-				sh "FAILD"
+				sendSlackNotifcation("#devops-testing",CONSOLE_LOG, "${env.JOB_NAME}", false)
 			}
 		}
 	}
@@ -47,5 +47,5 @@ def sendSlackNotifcation(CHANNEL, CONSOLE_LOG, JOB_NAME, isSuccess = true)
 	// 		color: '#ff0000'
 	// 	]
 	// ]
-	slackSend(channel: "${CHANNEL}", message: "Build failed. Console log: ${CONSOLE_LOG}")
+	slackSend(channel: "CHANNEL, message: "Build failed. Console log: ${CONSOLE_LOG}")
 }
