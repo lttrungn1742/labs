@@ -40,7 +40,7 @@ pipeline {
 					]
 				]
 
-				slackSend(channel: "#general", attachments: attachments)
+				slackSend(channel: "#devops-testing", attachments: attachments)
 			}
 		}
 	}
