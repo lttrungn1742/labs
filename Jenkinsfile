@@ -40,12 +40,16 @@ pipeline {
 
 def sendSlackNotifcation(CHANNEL, CONSOLE_LOG, JOB_NAME, isSuccess = true) 
 { 	
-	// def attachments = [
-	// 	[
-	// 		text: 'I find your lack of faith disturbing!',
-	// 		fallback: 'Hey, Vader seems to be mad at you.',
-	// 		color: '#ff0000'
-	// 	]
-	// ]
-	slackSend(channel: CHANNEL, message: "*Build failed* \nConsole log: ${CONSOLE_LOG}")
+	String message = "*Job Name* \n ${JOB_NAME}\n"
+	if (isSuccess){
+		color = "good"
+		message += "*Build Success* \n *Console log* ${CONSOLE_LOG}"
+	}
+	else {
+		color = "danger"
+		message += "*Build Fail* \n *Console log* ${CONSOLE_LOG}"
+	}
+	
+
+	slackSend(color: color, channel: CHANNEL, message: message)
 }
