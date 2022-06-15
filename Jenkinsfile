@@ -24,8 +24,8 @@ pipeline {
 		
 		success {
 			script {
-				 CONSOLE_LOG = "${env.BUILD_URL}/console"
-				 BUILD_STATUS = currentBuild.currentResult
+				def CONSOLE_LOG = "${env.BUILD_URL}/console"
+				def BUILD_STATUS = currentBuild.currentResult
 				sh 'echo ${CONSOLE_LOG}'
 				sh 'echo ${BUILD_STATUS}'
 			}
@@ -33,8 +33,8 @@ pipeline {
 
 		failure {
 			script {
-				CONSOLE_LOG = "${env.BUILD_URL}/console"
-				BUILD_STATUS = currentBuild.currentResult
+				def CONSOLE_LOG = "${env.BUILD_URL}/console"
+				def BUILD_STATUS = currentBuild.currentResult
 				sh 'echo ${CONSOLE_LOG}'
 				sh 'echo ${BUILD_STATUS}'
 			}
