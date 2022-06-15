@@ -1,3 +1,5 @@
+@Library('vietlink-jenkins-pipeline-library-dev') _
+
 
 pipeline {
 	agent any
@@ -24,32 +26,15 @@ pipeline {
 		
 		success {
 			script {
-				def CONSOLE_LOG = "${env.BUILD_URL}/console"
-				sendSlackNotifcation("#devops-testing",CONSOLE_LOG, "${env.JOB_NAME}")
+				sendSlackNotifcation("SUCCESSFUL")
 			}
 		}
 
 		failure {
 			script {
-				def CONSOLE_LOG = "${env.BUILD_URL}/console"
-				sendSlackNotifcation("#devops-testing",CONSOLE_LOG, "${env.JOB_NAME}", false)
+				sendSlackNotifcation("FAILURE")
 			}
 		}
 	}
 }
 
-def sendSlackNotifcation(CHANNEL, CONSOLE_LOG, JOB_NAME, isSuccess = true) 
-{ 	
-	String message = "*Job Name:* ${JOB_NAME}\n"
-	if (isSuccess){
-		color = "good"
-		message += "*Build Success*\n"
-	}
-	else {
-		color = "danger"
-		message += "*Build Fail*\n"
-	}
-	
-
-	slackSend(color: color, channel: CHANNEL, message: message + "<${CONSOLE_LOG}|*Console log*>")
-}
