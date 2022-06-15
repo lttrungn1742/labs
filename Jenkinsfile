@@ -40,14 +40,14 @@ pipeline {
 
 def sendSlackNotifcation(CHANNEL, CONSOLE_LOG, JOB_NAME, isSuccess = true) 
 { 	
-	String message = "*Job Name* \n ${JOB_NAME}\n"
+	String message = "*Job Name:* ${JOB_NAME}\n"
 	if (isSuccess){
 		color = "good"
-		message += "*Build Success* \n *Console log* ${CONSOLE_LOG}"
+		message += "*Build Success* \n *Console log:* ${CONSOLE_LOG}"
 	}
 	else {
 		color = "danger"
-		message += "*Build Fail* \n *Console log* ${CONSOLE_LOG}"
+		message += "*Build Fail* \n *Console log:* ${CONSOLE_LOG}"
 	}
 	
 
