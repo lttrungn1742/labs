@@ -17,7 +17,7 @@ pipeline {
 		}
 		stage ('Deploy Application') {
 			steps {
-				sh 'exit 0'
+				sh 'exit 1'
 			}
 		}
 	}
