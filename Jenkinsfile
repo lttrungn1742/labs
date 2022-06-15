@@ -21,25 +21,31 @@ pipeline {
 	}
 	
 	post {
-		always {
+		
+		success {
 			script {
 				// CONSOLE_LOG = "${env.BUILD_URL}/console"
 				// BUILD_STATUS = currentBuild.currentResult
-	
-				// sh 'echo slack'
-				// sendSlackNotifcation("${env.BUILD_URL}", "${env.EXECUTOR_NUMBER}")
-				def job_exec_details = build job: 'build_job', propagate: false, wait: true // Here wait: true means current running job will wait for build_job to finish.
-                    
-                if (job_exec_details.getResult() == 'FAILURE') {
-                    echo "JOB FAILED"
-                }
+				
+			}
+		}
+
+		failure {
+			script {
+				
 			}
 		}
 	}
 }
 
-def sendSlackNotifcation(String BUILD_URL, String CI) 
+def sendSlackNotifcation(CHANNEL, CONSOLE_LOG, JOB_NAME, isSuccess = true) 
 { 	
-	sh 'echo ${EXECUTOR_NUMBER}'
-	slackSend(channel: "#devops-testing", message: "Build failed. Broadcast to channel for better visibility.")
+	// def attachments = [
+	// 	[
+	// 		text: 'I find your lack of faith disturbing!',
+	// 		fallback: 'Hey, Vader seems to be mad at you.',
+	// 		color: '#ff0000'
+	// 	]
+	// ]
+	slackSend(channel: "${CHANNEL}", message: "Build failed. Console log: ${CONSOLE_LOG}")
 }
