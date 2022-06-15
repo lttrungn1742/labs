@@ -43,13 +43,13 @@ def sendSlackNotifcation(CHANNEL, CONSOLE_LOG, JOB_NAME, isSuccess = true)
 	String message = "*Job Name:* ${JOB_NAME}\n"
 	if (isSuccess){
 		color = "good"
-		message += "*Build Success* \n *Console log:* ${CONSOLE_LOG}"
+		message += "*Build Success*\n"
 	}
 	else {
 		color = "danger"
-		message += "*Build Fail* \n *Console log:* ${CONSOLE_LOG}"
+		message += "*Build Fail*\n"
 	}
 	
 
-	slackSend(color: color, channel: CHANNEL, message: message)
+	slackSend(color: color, channel: CHANNEL, message: message + "*Console log:* `${CONSOLE_LOG}`")
 }
