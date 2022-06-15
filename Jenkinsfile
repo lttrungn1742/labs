@@ -17,22 +17,15 @@ pipeline {
 		}
 		stage ('Deploy Application') {
 			steps {
-				sh 'exit 1'
+				sh 'exit 0'
 			}
 		}
 	}
 	
 	post {
-		
-		success {
+		always {
 			script {
-				sendSlackNotifcation("SUCCESSFUL")
-			}
-		}
-
-		failure {
-			script {
-				sendSlackNotifcation("FAILURE")
+				sendSlackNotifcation("${currentBuild.result}")
 			}
 		}
 	}
