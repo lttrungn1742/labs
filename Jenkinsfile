@@ -47,5 +47,5 @@ def sendSlackNotifcation(CHANNEL, CONSOLE_LOG, JOB_NAME, isSuccess = true)
 	// 		color: '#ff0000'
 	// 	]
 	// ]
-	slackSend(channel: CHANNEL, message: "Build failed. \nConsole log: ${CONSOLE_LOG}")
+	slackSend(channel: CHANNEL, message: "*Build failed* \nConsole log: ${CONSOLE_LOG}")
 }
