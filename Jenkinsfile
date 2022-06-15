@@ -25,7 +25,7 @@ pipeline {
 	post {
 		always {
 			script {
-				sendSlackNotifcation("${currentBuild.result}","#devops-testing",["U03CQNFKN75"])
+				sendSlackNotifcation("${currentBuild.result}","#devops-testing",["U03CQNFKN75", "UCLHVHCKF"])
 			}
 		}
 	}
