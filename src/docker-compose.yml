@@ -1,12 +1,13 @@
 version: '2'
 services:
   nginx:
-    build: nginx
+    image: nginx:latest
     environment:
     - NGINX_PORT=80
     links:
       - app_flask
       - sqli
+      - lfi
     ports:
       - 80:80
     volumes:
@@ -56,5 +57,4 @@ services:
       - ./lfi/src:/www:rw
     links:
      - database
-    ports:
-      - 80:80
+  

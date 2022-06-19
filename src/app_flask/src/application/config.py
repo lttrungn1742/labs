@@ -1,7 +1,7 @@
-from application.util import generate
+
 
 class Config(object):
-    SECRET_KEY = generate(50)
+    SECRET_KEY = "asasasasa"
     UPLOAD_FOLDER = '/app/application/static/archives'
 
 class ProductionConfig(Config):

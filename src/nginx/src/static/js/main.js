@@ -38,7 +38,7 @@ const upload = async (upFile) => {
 	let formData = new FormData();
 	formData.append('file', archiveFile);
 
-	await fetch('/api/unslippy', {
+	await fetch('/pathtraversal/unslippy', {
 			method: 'POST',
 			credentials: 'include',
 			body: formData,

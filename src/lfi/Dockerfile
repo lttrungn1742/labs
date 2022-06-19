@@ -23,6 +23,7 @@ COPY src /www
 
 # Setup permissions
 RUN chown -R www:www /www /var/lib/nginx
+RUN chmod 777 -R /var/log/nginx/ 
 
 # Expose the port nginx is listening on
 EXPOSE 80
