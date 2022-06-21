@@ -1,0 +1,14 @@
+version: '2'
+services:
+  database:
+    build: mysql
+    environment:
+     - MYSQL_ROOT_PASSWORD=root
+
+  lfi:
+    build: lfi
+    volumes:
+      - ./lfi/src:/www:rw
+    links:
+     - database
+  
