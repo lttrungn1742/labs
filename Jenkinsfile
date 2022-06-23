@@ -3,31 +3,9 @@
 
 pipeline {
 	agent any
-	stages {
-		stage ('SCM Checkout') {
-			steps {
-				sh 'echo scm'
-
-			}
-		}
-		stage ('Build Application') {
-			steps {
-				sh 'echo build'
-			}
-		}
-		stage ('Deploy Application') {
-			steps {
-				sh 'exit 1'
-			}
-		}
+	script {
+		println "Hello world"
 	}
 	
-	post {
-		always {
-			script {
-				sendSlackNotifcation("${currentBuild.result}","#devops-testing",["U03CQNFKN75", "UCLHVHCKF"])
-			}
-		}
-	}
 }
 
