@@ -11,8 +11,10 @@ services:
       - ./lfi/src:/www:rw
     links:
      - database
+    ports:
+      - 80:80
   
-  rce:
+  sym_link:
     build: sym_link
     ports:
       - 1337:1337
