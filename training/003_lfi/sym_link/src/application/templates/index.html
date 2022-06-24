@@ -2,8 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Viet Link</title>
-        
+        <title>Slippy</title>
         <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
     </head>
@@ -12,23 +11,20 @@
         <div class="row justify-content-center mt-5">
               <div class="col-lg-8">
                   <div class="card ancient-card mx-auto updoc-card">
-                      <div class="card-body w-100" style="min-height: 400px;">                   
+                      <div class="card-body w-100" style="min-height: 400px;">
+                          <p class="w-100">Slippy Firmware Upgrader</p>
+                          <div class="row justify-content-center">
+                              <div class="col text-center">
+                                <p class="mid-help">Current Slippy Jet version is 3.03</p>
+                                <p class="mid-help">Please select a newer version of firmware tar.gz file to upload..</p>
+                              </div>
+                          </div>
+                          
                           <div class="row">
                               <div class="col text-center mt-5">
                                   <div class="upload-area">
-                                    <ul>
-                                        <li><a href="/xss.html">XSS</a></li>
-                                        <li><a href="/login.html">Login</a></li>
-                                        <li><a href="/upload.html">Upload file</a></li>
-                                        <li><a href="/ssrf.html">SSRF</a></li>
-                                        <li><a href="/admin.html">Admin page</a></li>
-                                        <li><a href="/sqlBlind.html">SQL Injection Time Base</a></li>
-                                        <li><a href="/sqliUnion.php">SQL Injection Union</a></li>
-                                        <li><a href="/sqliError.php">SQL Injection Error</a></li>
-                                        <li><a href="/Nosqli.html">NoSQL Injection</a></li>
-                                        <li><a href="/lfi/index.php">Local File Inclusion</a></li>
-                                    </ul>
-                                    
+                                    <input type="file" id="archiveFile" name="archiveFile" />
+                                    <img src="/static/images/upload-doc.png" height="150px" id="upload-btn">
                                   </div>
                               </div>
                           </div>
@@ -53,5 +49,6 @@
         <script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
         <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/static/js/TweenMax.min.js"></script>
+        <script type="text/javascript" src="/static/js/main.js"></script>
     </body>
 </html>

@@ -2,10 +2,10 @@
 	session_start();
 	require("db.php");
 	if (isset($_GET['page'])&&!empty($_GET['page'])){
-		$page=$_GET['page'];
+		$page= "./includes/". $_GET['page'];
 		include($page);
 	}
 	else{
-		include("login.php");
+		include("./includes/login.php");
 	}
 ?>

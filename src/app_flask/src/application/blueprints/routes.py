@@ -1,5 +1,4 @@
 from flask import Blueprint, request, abort
-from application.util import extract_from_archive
 import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
@@ -26,23 +25,12 @@ def admin():
         pass
     return {'data': 'non'}
 
-@api.route('/unslippy', methods=['POST'])
-def cache():
-    if 'file' not in request.files:
-        return abort(400)
-    
-    extraction = extract_from_archive(request.files['file'])
-    if extraction:
-        return {"list": extraction}, 200
-
-    return '', 204
 
 @api.route('/comment', methods=['POST'])
 def comment():
     com = request.json['comment'] or None
     if com == "" or com == None:
         return {'isSuccess' : False}
-    # com = com.replace('>','&#62;').replace('<','&lt;').replace('󠀼󠀼󠀼<','&#917564;').replace('>','&#917566;').replace('"','&quot;').replace("'",'&apos;')
     isSuccess = dbMysql.addComment(com)
     return {'isSuccess' : isSuccess}
 

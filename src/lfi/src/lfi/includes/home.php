@@ -11,7 +11,7 @@
 
 <html>
 <head>
-    <title>SQL  Injection Error Base</title>
+    <title>Home</title>
     <link rel="icon" type="image/png" href="/static/favicon.png">
     <link rel="stylesheet" type="text/css" href="/static/css/prism.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">

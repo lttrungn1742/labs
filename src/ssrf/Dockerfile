@@ -1,17 +1,19 @@
 FROM debian:buster-slim
 
+
 # Setup user
 RUN useradd www
 
 # Install system packeges
-RUN apt-get update && apt-get install -y supervisor nginx lsb-release curl wget
+RUN apt-get update && \
+        apt-get install -y supervisor nginx lsb-release curl wget redis-server cron vim
 
 # Add repos
 RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 RUN echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list
 
 # Install PHP dependencies
-RUN apt update && apt install -y php7.4-fpm php7.4-mysql
+RUN apt update && apt install -y php7.4-fpm  php7.4-zip php7.4-xml
 
 # Configure php-fpm and nginx
 COPY config/fpm.conf /etc/php/7.4/fpm/php-fpm.conf
@@ -23,10 +25,10 @@ COPY src /www
 
 # Setup permissions
 RUN chown -R www:www /www /var/lib/nginx
-RUN chmod 777 -R /var/log/nginx/ 
 
 # Expose the port nginx is listening on
 EXPOSE 80
 
-# Start supervisord
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+COPY entrypoint.sh .
+
+CMD ["sh", "entrypoint.sh"]
