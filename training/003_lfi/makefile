@@ -1,13 +1,10 @@
 build:
-	docker-compose --file src/docker-compose.yml build
+	docker-compose --file docker-compose.yml build
 up:
-	docker-compose --file src/docker-compose.yml up -d database 
-	echo "Sleep to start database - 30s"
-	sleep 30
-	docker-compose --file src/docker-compose.yml up -d lfi 
+	docker-compose --file docker-compose.yml up -d database lfi sym_link
 logs:
-	docker-compose --file src/docker-compose.yml logs -f
+	docker-compose --file docker-compose.yml logs -f
 down:
-	docker-compose --file src/docker-compose.yml down
+	docker-compose --file docker-compose.yml down
 restart:
-	docker-compose --file src/docker-compose.yml restart
+	docker-compose --file docker-compose.yml restart
