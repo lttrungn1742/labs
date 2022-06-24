@@ -13,3 +13,10 @@ scan:
 	docker-compose --file src/docker-compose.yml up scaner 
 restart:
 	docker-compose --file src/docker-compose.yml restart
+build_ssrf:
+	docker-compose --file src/docker-compose.yml build ssrf
+up_ssrf:
+	docker-compose --file src/docker-compose.yml up -d ssrf
+bash_ssrf:
+	docker-compose --file src/docker-compose.yml exec ssrf bash
+	
