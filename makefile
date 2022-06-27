@@ -1,10 +1,10 @@
 build:
 	docker-compose --file src/docker-compose.yml build
 up:
-	docker-compose --file src/docker-compose.yml up -d database mongo
+	docker-compose --file src/docker-compose.yml up -d database 
 	echo "Sleep to start database - 30s"
 	sleep 30
-	docker-compose --file src/docker-compose.yml up -d app_flask nginx sqli lfi 
+	docker-compose --file src/docker-compose.yml up -d csrf
 logs:
 	docker-compose --file src/docker-compose.yml logs -f
 down:
@@ -13,10 +13,4 @@ scan:
 	docker-compose --file src/docker-compose.yml up scaner 
 restart:
 	docker-compose --file src/docker-compose.yml restart
-build_ssrf:
-	docker-compose --file src/docker-compose.yml build ssrf
-up_ssrf:
-	docker-compose --file src/docker-compose.yml up -d ssrf
-bash_ssrf:
-	docker-compose --file src/docker-compose.yml exec ssrf bash
 	

@@ -22,7 +22,7 @@
                             </div>
                         </div>
                          
-                        <div class="row" style="border-style: solid; border-color: black;">
+                        <div class="row" >
                             
                                 <pre>
                                     <?php

