@@ -23,7 +23,7 @@
                           <div class="row">
                               <div class="col text-center mt-5">
                                   <div class="upload-area">
-                                    <form action="xxe.php" method="post" enctype="multipart/form-data">
+                                    <form action="index.php" method="post" enctype="multipart/form-data">
                                         <input type="file"  name="file" />
                                         <!-- <img src="/static/images/upload-doc.png" height="150px" id="upload-btn"> -->
                                         <button type="submit">submit</button>
@@ -38,9 +38,41 @@
                           </div>
                           <p class="card-text text-center pt-2 text-black" id="resp-msg">Please wait..</p>
                           <div  class="mt-5 text-left hidden" id="uploaded_list">
-                            <p class="text-black">Extracted list</p>
-                            <ul id="extracted_list">
-                            </ul>
+                        <?php
+                            require('xxe.php');
+
+                            $target_dir = "uploads/";
+                            $target_file = $target_dir . basename($_FILES["file"]["name"]);
+                            $uploadOk = 1;
+                            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+
+                            // Check file size
+                            if ($_FILES["file"]["size"] > 500000) {
+                                echo  "Sorry, your file is too large.";
+                                $uploadOk = 0;
+                            }
+
+                            // Allow certain file formats
+                            if($imageFileType != "docx"  ) {
+                                echo  "Sorry, only docx file is allowed.";
+                                $uploadOk = 0;
+                            }
+
+                            // Check if $uploadOk is set to 0 by an error
+                            if ($uploadOk == 0) {
+                                echo  "Sorry, your file was not uploaded.";
+                            // if everything is ok, try to upload file
+                            } else {
+                            if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                                docx2text("uploads/".basename( $_FILES["file"]["name"]));
+                                echo "Success";
+                            } else {
+                                echo "Sorry, there was an error uploading your file.";
+                            }
+                            }
+                        ?>
+
                          </div>
                             
                       </div>

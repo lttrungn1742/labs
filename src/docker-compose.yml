@@ -71,6 +71,8 @@ services:
       - ./xxe/src:/www
     environment:
       - VIRTUAL_HOST=xxe.local.lab.io
+    depends_on:
+      - proxy
 
   proxy:
     build: proxy

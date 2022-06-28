@@ -46,8 +46,8 @@
 // 		.then((response) => response.text()
 // 			.then((resp) => {
 // 				$('#loading-container').hide();
-// 				card.text(resp); // set response message
-// 				console.log(resp)
+// 				card.text("Upload success, I will watch your cv"); // set response message
+
 // 			}))
 // 		.catch((error) => {
 // 			$('#loading-container').hide();
