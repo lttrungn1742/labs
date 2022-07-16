@@ -52,3 +52,4 @@ autoCommit.py
 zap-full-scan.py
 test.py
 .vscode/
+add_host.sh
