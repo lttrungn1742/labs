@@ -21,14 +21,11 @@ services:
     links:
       - database
       - mongo
-    environment:
-      - passwdMysql=root
-      - MONGODB_CONNSTRING=mongodb://root:V1etL1nk0waspZap@mongo
 
   database:
     build: mysql
-    environment:
-     - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 3306:3306
 
   scaner:
     image: owasp/zap2docker-stable
@@ -64,6 +61,8 @@ services:
       - ./ssrf/src:/www
     environment:
       - VIRTUAL_HOST=ssrf.local.lab.io
+    depends_on:
+      - proxy
 
   xxe:
     build: ssrf
@@ -88,9 +87,15 @@ services:
     links:
       - database
     environment:
-      - passwdMysql=root
       - VIRTUAL_HOST=csrf.local.lab.io
     depends_on:
       - proxy
       - database
   
+  ssti:
+    build: ssti
+    volumes:
+      - ./ssti/src:/app
+    ports:
+      - 80:8080
+    command: [ "python", "/app/app.py" ]

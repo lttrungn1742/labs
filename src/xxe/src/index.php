@@ -36,8 +36,8 @@
                                   <div class="progress-bar progress-bar-striped progress-bar-animated" id="progressbar" style="width: 60%;"></div>
                               </div>
                           </div>
-                          <p class="card-text text-center pt-2 text-black" id="resp-msg">Please wait..</p>
-                          <div  class="mt-5 text-left hidden" id="uploaded_list">
+
+                            
                         <?php
                             require('xxe.php');
 
@@ -59,21 +59,20 @@
                                 $uploadOk = 0;
                             }
 
-                            // Check if $uploadOk is set to 0 by an error
                             if ($uploadOk == 0) {
                                 echo  "Sorry, your file was not uploaded.";
-                            // if everything is ok, try to upload file
-                            } else {
-                            if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-                                docx2text("uploads/".basename( $_FILES["file"]["name"]));
-                                echo "Success";
+                            } 
+                            else {
+                                if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                                echo "Success1";
+                                echo docx2text("uploads/".basename( $_FILES["file"]["name"]));
+                                echo "Success2";
                             } else {
                                 echo "Sorry, there was an error uploading your file.";
                             }
                             }
                         ?>
 
-                         </div>
                             
                       </div>
                   </div>

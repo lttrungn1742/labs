@@ -24,6 +24,6 @@ COPY config/supervisord.conf /etc/supervisord.conf
 
 # Disable pycache
 ENV PYTHONDONTWRITEBYTECODE=1
-
+ENV passwdMysql=root
 # Run supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

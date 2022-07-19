@@ -28,6 +28,7 @@ function readZippedXML($archiveFile, $dataFile) {
     
     // In case of failure return empty string
     return "";
-}
+}   
 
 ?>
+
