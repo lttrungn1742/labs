@@ -1,0 +1,7 @@
+@Library('vietlink-jenkins-pipeline-library-prd') _
+
+ci_cd_ModuleTerraform(
+    git_repo: 'git@bitbucket.org:devops-vl/aws-module-waf-v2.git', 
+    MODULE_NAME: "aws-module-waf-v2", 
+    BRANCH: ["origin/master"]
+)
