@@ -1,0 +1,8 @@
+@Library('vietlink-jenkins-pipeline-library-prd') _
+
+ci_cd_ModuleTerraform(
+    git_repo: 'git@bitbucket.org:devops-vl/aws-module-template.git', 
+    MODULE_NAME: "aws-module-alarm-alb", 
+    BRANCH: ['origin/master', 'origin/main' ]
+)
+

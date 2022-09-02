@@ -1,0 +1,3 @@
+@Library('vietlink-jenkins-pipeline-library-prd') _
+
+ci_cd_ModuleTerraform(git_repo: 'git@bitbucket.org:devops-vl/aws-module-developer-user.git', MODULE_NAME: "aws-module-developer-user")
