@@ -1,7 +1,0 @@
-@Library('vietlink-jenkins-pipeline-library-prd') _
-
-ci_cd_ModuleTerraform(
-    git_repo: 'git@bitbucket.org:devops-vl/aws-module-cfs3-csr.git', 
-    MODULE_NAME: "aws-module-cloudfront-wordpress", 
-    BRANCH: ["origin/master"]
-)
