@@ -1,3 +1,0 @@
-@Library('vietlink-jenkins-pipeline-library-prd') _
-
-ci_cd_ModuleTerraform(git_repo: 'git@bitbucket.org:devops-vl/aws-module-iam-roles-template.git', MODULE_NAME: "aws-module-iam-roles-template", BRANCH: ['origin/master'])
